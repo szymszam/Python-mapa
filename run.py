@@ -1,18 +1,33 @@
-from PyQt6.QtWidgets import QMainWindow, QApplication
-from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
-import matplotlib.pyplot as plt
+from PyQt6.QtWidgets import QMainWindow, QApplication, QWidget, QGridLayout
 import sys
-
-class MplCanvas(FigureCanvas):
-    def __init__(self, width=5, height=4, dpi=100):
-        fig, self.ax = plt.subplots(figsize=(width, height), dpi=dpi)
-        super(MplCanvas, self).__init__(fig)
+from Widok_porownywarka import wykres
 
 
 class MainWindow(QMainWindow):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.__init_base()
         self.setWindowTitle('Los Elektrikos')
+
+        self.__init_view()
+        self.show()
+
+    def __init_base(self):
+        self.__padding_x = 300
+        self.__padding_y = 300
+        self.__width = 800
+        self.__height = 600
+
+    def __init_view(self):
+        porownywarka = wykres()
+
+        main_layout = QGridLayout()
+        main_layout.addWidget(porownywarka, 0, 0)
+
+        main_widget = QWidget(self)
+        main_widget.setLayout(main_layout)
+
+        self.setCentralWidget(main_widget)
 
 
 def main():
@@ -20,3 +35,7 @@ def main():
     window = MainWindow()
     window.show()
     sys.exit(app.exec())
+
+
+if __name__ == "__main__":
+    main()
