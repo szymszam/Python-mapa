@@ -6,17 +6,11 @@ from Widok_porownywarka import wykres
 class MainWindow(QMainWindow):
     def __init__(self, parent=None):
         super().__init__(parent)
-        self.__init_base()
+        self.setGeometry(350, 100, 1300, 900)
         self.setWindowTitle('Los Elektrikos')
 
         self.__init_view()
         self.show()
-
-    def __init_base(self):
-        self.__padding_x = 300
-        self.__padding_y = 300
-        self.__width = 800
-        self.__height = 600
 
     def __init_view(self):
         porownywarka = wykres()
