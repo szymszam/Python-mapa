@@ -4,3 +4,4 @@ class Wejscie(ABC):
     @abstractmethod
     def czytaj(self):
         pass
+
