@@ -1,6 +1,7 @@
-from PyQt6.QtWidgets import QMainWindow, QApplication, QWidget, QGridLayout
+from PyQt6.QtWidgets import QMainWindow, QApplication, QWidget, QGridLayout, QVBoxLayout
 import sys
 from Widok_porownywarka import wykres
+from Buttons_wspolne import Buttons_trybow_panel
 
 
 class MainWindow(QMainWindow):
@@ -14,9 +15,11 @@ class MainWindow(QMainWindow):
 
     def __init_view(self):
         porownywarka = wykres()
+        buttons_trybow_panel = Buttons_trybow_panel()
 
-        main_layout = QGridLayout()
-        main_layout.addWidget(porownywarka, 0, 0)
+        main_layout = QVBoxLayout()
+        # main_layout.addWidget(porownywarka, 0, 0)
+        main_layout.addWidget(buttons_trybow_panel)
 
         main_widget = QWidget(self)
         main_widget.setLayout(main_layout)
