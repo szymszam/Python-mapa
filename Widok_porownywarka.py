@@ -13,6 +13,10 @@ class wykres(FigureCanvasQTAgg):
 
         x_start, x_end = 2015, 2024 # tutaj jest zakres lat
         xx = range(x_start, x_end)
+        yy= [23, 45, 56, 78, 89, 1, 2, 3, 5, 12]
+        self.__axes.plot(xx, yy, color=color)
+        self.__axes.legend()
+        self.draw()
 
 
 class lata():
