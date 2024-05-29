@@ -1,4 +1,4 @@
-from PyQt6.QtWidgets import QMainWindow, QApplication, QWidget, QGridLayout, QVBoxLayout
+from PyQt6.QtWidgets import QMainWindow, QApplication, QWidget, QGridLayout, QVBoxLayout, QTabWidget
 import sys
 from Widok_porownywarka import wykres
 from Buttons_wspolne import Buttons_trybow_panel
@@ -14,18 +14,16 @@ class MainWindow(QMainWindow):
         self.show()
 
     def __init_view(self):
-        porownywarka = wykres()
-        buttons_trybow_panel = Buttons_trybow_panel()
+        buttons_panel = Buttons_trybow_panel()
 
-        main_layout = QVBoxLayout()
-        # main_layout.addWidget(porownywarka, 0, 0)
-        main_layout.addWidget(buttons_trybow_panel)
-
+        # Tworzenie głównego widgetu
         main_widget = QWidget(self)
+        main_layout = QVBoxLayout()
+        main_layout.addWidget(buttons_panel)
         main_widget.setLayout(main_layout)
 
+        # Ustawienie głównego widgetu jako centralny widget
         self.setCentralWidget(main_widget)
-
 
 def main():
     app = QApplication(sys.argv)

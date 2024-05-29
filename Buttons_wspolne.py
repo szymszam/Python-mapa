@@ -1,57 +1,45 @@
 from abc import ABC, abstractmethod
 
-from PyQt6.QtWidgets import QGroupBox, QHBoxLayout, QPushButton
+from PyQt6.QtWidgets import QGroupBox, QTabWidget, QPushButton, QVBoxLayout, QWidget
 
-
-class Button_trybu(ABC):
-    @abstractmethod
-    def klik(self):
-        raise "spierdalaj"
-
-    @abstractmethod
-    def set_position(self, x, y):
-        raise "brak zaznaczonego miejsca"
-
-
-class Button_trybu_porownywarka(Button_trybu):
-    def __init__(self):
-        self.__position = {"x": 0, "y": 0}
-
-    def klik(self):
-        print("brak kodu")
-
-    def set_position(self, x, y):
-        self.__position = {"x": x, "y": y}
-
-
-class Button_trybu_mapa(Button_trybu):
-    def __init__(self):
-        self.__mapa = {"x": 0, "y": 0}
-
-    def klik(self):
-        print("brak kodu")
-
-    def set_position(self, x, y):
-        self.__mapa = {"x": x, "y": y}
-
-
-class Buttons_trybow_panel(QGroupBox):
+class Buttons_trybow_panel(QTabWidget):
     def __init__(self):
         super().__init__()
 
-        # Tworzenie układu poziomego
-        layout = QHBoxLayout()
 
-        # Tworzenie przycisków
-        button1 = QPushButton("Porownywarka")
-        button1.clicked.connect(Button_trybu_porownywarka().klik)
+        # Tworzenie widgetu dla pierwszej zakładki
+        tab1 = QWidget()
+        tab1_layout = QVBoxLayout()
 
-        button2 = QPushButton("Mapa")
-        button2.clicked.connect(Button_trybu_mapa().klik)
+        btn_xlsx = Button_Wczytywanie()
 
-        # Dodawanie przycisków do układu
-        layout.addWidget(button1)
-        layout.addWidget(button2)
+        tab1_layout.addWidget(Button_Wczytywanie())
+        tab1.setLayout(tab1_layout)
 
-        # Ustawianie układu dla tego widgetu
-        self.setLayout(layout)
+        # Tworzenie widgetu dla drugiej zakładki
+        tab2 = QWidget()
+        tab2_layout = QVBoxLayout()
+        tab2.setLayout(tab2_layout)
+
+        tab3 = QWidget()
+        tab3_layout = QVBoxLayout()
+        tab3.setLayout(tab3_layout)
+
+        # Dodawanie zakładek do widgetu
+        self.addTab(tab1, "Wczytywanie")
+        self.addTab(tab2, "Porownywarka")
+        self.addTab(tab3, "Mapa")
+
+class Button_Wczytywanie(QPushButton):
+    def __init__(self):
+        super().__init__("Wczytywanie")
+        self.clicked.connect(self.klik)
+        self.click_state = False
+
+    def klik(self):
+        self.click_state = not self.click_state
+        if self.click_state == True:
+            print("tutaj bedzie odwolanie do wczytywanie xlsx i txt")
+            self.setStyleSheet("background-color: green; color: white;")
+        else:
+            self.setStyleSheet("background-color: red; color: white;")
