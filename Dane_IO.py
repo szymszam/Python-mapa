@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 import pandas as pd
-from PanstwaM import panstwo, panstwaoriginal
+from PanstwaM import Panstwo, Panstwaoriginal
 
 class Wejscie(ABC):
     @abstractmethod
@@ -36,8 +36,3 @@ class xlsx_czytaj_wykres(Wejscie):
             lista_obiektow_panstwo.append(temp)
         return panstwaoriginal(lista_obiektow_panstwo)
 
-
-testy = xlsx_czytaj_wykres()
-wynik = testy.czytaj(r"C:\Users\User\Desktop\road_eqr_carpda_spreadsheet.xlsx")
-wynik = wynik.daj_panstwa()
-print(wynik[4])
