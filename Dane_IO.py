@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 import pandas as pd
-from PanstwaM import Panstwo, Panstwaoriginal
+from PanstwaM import Panstwo, Panstwa_original
 
 class Wejscie(ABC):
     @abstractmethod
@@ -34,5 +34,4 @@ class xlsx_czytaj_wykres(Wejscie):
         for index in range(len(nazwy_panstw)):
             temp = Panstwo(nazwy_panstw[index], dane_panstw[index])
             lista_obiektow_panstwo.append(temp)
-        return Panstwaoriginal(lista_obiektow_panstwo)
-
+        return Panstwa_original(lista_obiektow_panstwo)
