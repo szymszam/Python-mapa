@@ -32,7 +32,7 @@ class xlsx_czytaj_wykres(Wejscie):
     def __stworz_obiekty(self, nazwy_panstw, dane_panstw):
         lista_obiektow_panstwo = []
         for index in range(len(nazwy_panstw)):
-            temp = panstwo(nazwy_panstw[index], dane_panstw[index])
+            temp = Panstwo(nazwy_panstw[index], dane_panstw[index])
             lista_obiektow_panstwo.append(temp)
-        return panstwaoriginal(lista_obiektow_panstwo)
+        return Panstwaoriginal(lista_obiektow_panstwo)
 
