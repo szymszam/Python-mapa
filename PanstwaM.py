@@ -9,6 +9,9 @@ class panstwo():
     def daj_ilosc(self):
         return self.__lista_ilosci_aut
 
+    def __repr__(self):
+        return f"panstwo(nazwa={self.__nazwa}, dane={self.__lista_ilosci_aut})"
+
 
 class panstwaoriginal():
     def __init__(self, lista_obiektow_panstw):
