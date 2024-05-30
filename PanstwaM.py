@@ -1,4 +1,4 @@
-class panstwo():
+class Panstwo():
     def __init__(self, nazwa, dane):
         self.__nazwa = nazwa
         self.__lista_ilosci_aut = dane
@@ -13,7 +13,7 @@ class panstwo():
         return f"panstwo(nazwa={self.__nazwa}, dane={self.__lista_ilosci_aut})"
 
 
-class panstwaoriginal():
+class Panstwaoriginal():
     def __init__(self, lista_obiektow_panstw):
         self.__panstwa = lista_obiektow_panstw
 
