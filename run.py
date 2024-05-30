@@ -2,6 +2,7 @@ from PyQt6.QtWidgets import QMainWindow, QApplication, QWidget, QGridLayout, QVB
 import sys
 from Widok_porownywarka import wykres
 from Buttons_wspolne import Buttons_trybow_panel
+from PanstwaM import Panstwo
 
 
 
@@ -15,6 +16,7 @@ class MainWindow(QMainWindow):
         self.show()
 
     def __init_view(self):
+        panstwo =  Panstwo()
         buttons_trybow_panel = Buttons_trybow_panel()
 
         # Tworzenie głównego widgetu
