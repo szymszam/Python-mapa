@@ -1,5 +1,6 @@
 from PyQt6.QtWidgets import QTabWidget, QPushButton, QVBoxLayout, QWidget
 from Dane_IO import xlsx_czytaj_wykres
+from Buttons_porownywarka import Buttons_lista_panstw
 
 
 class Buttons_trybow_panel(QTabWidget):
@@ -16,6 +17,7 @@ class Buttons_trybow_panel(QTabWidget):
         # Tworzenie widgetu dla drugiej zakładki
         tab2 = QWidget()
         tab2_layout = QVBoxLayout()
+        tab2_layout.addWidget(Buttons_lista_panstw())
         tab2.setLayout(tab2_layout)
 
         tab3 = QWidget()
