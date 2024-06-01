@@ -10,7 +10,7 @@ class Panstwo():
         return self.__lista_ilosci_aut
 
     def __repr__(self):
-        return f"panstwo(nazwa={self.__nazwa}, dane={self.__lista_ilosci_aut})"
+        return f"{self.__nazwa}:{self.__lista_ilosci_aut})"
 
     def __eq__(self, other):
         if isinstance(other, Panstwo):
@@ -18,16 +18,12 @@ class Panstwo():
         return False
 
 
-class Panstwa_original():
-    def __init__(self, lista_obiektow_panstwo):
+class Lista_panstw(): #Bedzie robić za panstwa original i panstwa
+    def __init__(self, lista_obiektow_panstwo = []):
         self.__tablica_panstw = lista_obiektow_panstwo
 
     def daj_panstwa(self):
         return self.__tablica_panstw
-
-class Panstwa_zaznaczone(Panstwa_original):
-    def __init__(self):
-        self.__tablica_panstw = []
 
     def dodaj_panstwo(self, panstwo):
         self.__tablica_panstw.append(panstwo)
@@ -35,15 +31,17 @@ class Panstwa_zaznaczone(Panstwa_original):
     def usun_panstwo(self, panstwo):
         self.__tablica_panstw.remove(panstwo)
 
-class Panstwa_filtrowane():
-    def __init__(self, lista_obiektow_panstwo):
-        self.__tablica_panstw = lista_obiektow_panstwo
-
-    def daj_panstwa(self):
-        return self.__tablica_panstw
-
-    def filtruj(self, klucz, lista_pierwotna):
+    def zeruj_liste(self):
         self.__tablica_panstw = []
-        for panstwo in lista_pierwotna:
-            if klucz in panstwo.daj_nazwa():
-                self.__tablica_panstw.append(panstwo)
+
+
+class Lista_panstw_z_filtowaniem(Lista_panstw):
+    def __init__(self, lista_obiektow_panstwo):
+        super().__init__(lista_obiektow_panstwo)
+
+    def filtruj(self, klucz, lista_filtorwana): #tutaj dostarczamy czystą listę nie obiekt
+        self.zeruj_liste()
+        klucz_lower = klucz.lower()
+        for panstwo in lista_filtorwana:
+            if klucz_lower in panstwo.daj_nazwa().lower():
+                self.dodaj_panstwo(panstwo)
