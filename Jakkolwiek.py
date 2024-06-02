@@ -1,12 +1,11 @@
-from PanstwaM import Panstwa_filtrowane, Panstwa_zaznaczone, Panstwa_original, Panstwo
-poland = Panstwo('Polska', [2, 3, 4])
-germany = Panstwo('Niemcy', [2,4,1])
-russia = Panstwo('Rosja', [5,2,1])
-
-lista_original = [poland, germany, russia]
-original = Panstwa_original(lista_original)
-filtrowane = Panstwa_filtrowane(lista_original)
-print(original.daj_panstwa())
-print(filtrowane.daj_panstwa())
-filtrowane.filtruj("a", lista_original)
-print(filtrowane.daj_panstwa())
+from PanstwaM import Panstwo, Lista_panstw, Lista_panstw_z_filtowaniem
+Poland = Panstwo("Polska", [1,2,3])
+Germany = Panstwo("Germany", [4,3,2])
+Russia = Panstwo("Russia", [6,1,2])
+Prime = Lista_panstw([Poland, Germany, Russia])
+Filtr = Lista_panstw_z_filtowaniem([Poland, Germany, Russia])
+print(Prime.daj_panstwa())
+print(Filtr.daj_panstwa())
+Filtr.filtruj("ge", Prime.daj_panstwa())
+print(Filtr.daj_panstwa())
+print(Prime.daj_panstwa())

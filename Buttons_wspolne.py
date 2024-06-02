@@ -1,5 +1,5 @@
 from PyQt6.QtWidgets import QTabWidget, QPushButton, QVBoxLayout, QWidget
-from Dane_IO import xlsx_czytaj_wykres
+from Dane_IO import Wejscie_xlsx
 from Buttons_porownywarka import Buttons_lista_panstw
 
 
@@ -35,7 +35,7 @@ class Button_Wczytywanie(QPushButton):
         super().__init__("Wczytywanie")
         self.clicked.connect(self.klik)
         self.click_state = False
-        self.xlsx_czytaj = xlsx_czytaj_wykres()
+        self.xlsx_czytaj = Wejscie_xlsx()
 
     def klik(self):
         self.click_state = not self.click_state
