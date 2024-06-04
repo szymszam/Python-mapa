@@ -1,6 +1,7 @@
 from PyQt6.QtWidgets import QTabWidget, QPushButton, QVBoxLayout, QWidget
 from Dane_IO import Wejscie_xlsx
 from Buttons_porownywarka import Buttons_lista_panstw
+from PanstwaM import Panstwaoriginal, Panstwo
 
 
 class Buttons_trybow_panel(QTabWidget):
@@ -42,7 +43,9 @@ class Button_Wczytywanie(QPushButton):
         if self.click_state == True:
             print("tutaj bedzie odwolanie do wczytywanie xlsx i txt")
             self.setStyleSheet("background-color: green; color: white;")
-            #self.xlsx_czytaj.czytaj(r"C:\Users\olech\Desktop\road_eqr_carpda_spreadsheet.xlsx") #Tutaj miejsce do podania linku
+            # Tutaj miejsce do podania linku
+            panstwa_org_klik = self.xlsx_czytaj.czytaj(r"C:\Users\olech\Desktop\road_eqr_carpda_spreadsheet.xlsx")
+            return panstwa_org_klik
 
         else:
             self.setStyleSheet("background-color: red; color: white;")

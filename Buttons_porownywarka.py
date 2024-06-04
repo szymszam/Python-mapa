@@ -1,10 +1,12 @@
 from PyQt6.QtWidgets import QVBoxLayout, QPushButton, QWidget
+from PanstwaM import Lista_panstw
 
 
 class Button_panstwo(QPushButton):
-    def __init__(self, label):
-        super().__init__(label)
+    def __init__(self, btn_name):
+        super().__init__(btn_name)
         self.clicked.connect(self.klik)
+
 
     def klik(self):
         print(self.text())
@@ -12,13 +14,10 @@ class Button_panstwo(QPushButton):
 class Buttons_lista_panstw(QWidget):
     def __init__(self):
         super().__init__()
-        self.__init_btns_p()
+        self.__buttons = []
+        self.lista_panstw = Lista_panstw()
 
-    def __init_btns_p(self):
+        for panstwo in self.lista_panstw:
 
-        layout = QVBoxLayout()
-        buttons = ["Przycisk 1", "Przycisk 2", "Przycisk 3", "Przycisk 4"]
-        for button_label in buttons:
-            button = Button_panstwo(button_label)
-            layout.addWidget(button)
-        self.setLayout(layout)
+
+
