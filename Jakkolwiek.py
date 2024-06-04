@@ -1,11 +1,44 @@
-from PanstwaM import Panstwo, Lista_panstw, Lista_panstw_z_filtowaniem
-Poland = Panstwo("Polska", [1,2,3])
-Germany = Panstwo("Germany", [4,3,2])
-Russia = Panstwo("Russia", [6,1,2])
-Prime = Lista_panstw([Poland, Germany, Russia])
-Filtr = Lista_panstw_z_filtowaniem([Poland, Germany, Russia])
-print(Prime.daj_panstwa())
-print(Filtr.daj_panstwa())
-Filtr.filtruj("ge", Prime.daj_panstwa())
-print(Filtr.daj_panstwa())
-print(Prime.daj_panstwa())
+import sys
+import PyQt5.QtWidgets as qtw
+import PyQt5.QtGui as qtg
+
+class MainWindow(qtw.QWidget):
+    def __init__(self):
+        super().__init__()
+
+        #tytuł
+        self.setWindowTitle('Okno życia')
+
+        #Ustawienie okna
+        self.setLayout(qtw.QVBoxLayout())
+
+        #Stwórz Label
+        my_label = qtw.QLabel("Google")
+        my_label.setFont(qtg.QFont('Times New Roman', 18))
+        self.layout().addWidget(my_label)
+
+        #Entry box
+        my_entry = qtw.QLineEdit()
+        #my_entry.setObjectName("nazwa")
+        #my_entry.setText("Wyszukaj")
+        self.layout().addWidget(my_entry)
+
+        #Przycisk
+        my_button = qtw.QPushButton("Szukaj",
+                                clicked = lambda: klik())
+        self.layout().addWidget(my_button)
+
+
+        #Pokaz co stworzyłeś
+        self.show()
+
+        def klik():
+            #Zmien label
+            my_label.setText(my_entry.text())
+
+            #zmien zawartość boxa
+            my_entry.setText("")
+
+app = qtw.QApplication([])
+mw = MainWindow()
+app.exec_()
