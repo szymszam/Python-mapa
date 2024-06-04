@@ -16,6 +16,7 @@ class Buttons_lista_panstw(QWidget):
         super().__init__()
         self.__buttons = []
         self.__lista_panstw = Lista_panstw()  # tutAJ BEDZIE Z FILTROWANIE TO DO
+
         self.__lista = self.__lista_panstw.daj_panstwa()
 
         for i in range(len(self.__lista)):
