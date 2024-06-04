@@ -2,13 +2,14 @@ from PyQt6.QtWidgets import QMainWindow, QApplication, QWidget, QGridLayout, QVB
 import sys
 from Widok_porownywarka import wykres
 from Buttons_wspolne import Buttons_trybow_panel
+from Buttons_porownywarka import Buttons_lista_panstw
 from PanstwaM import Panstwo
 
-
+lista_panstw_oryginal = []
 
 class MainWindow(QMainWindow):
-    def __init__(self, parent=None):
-        super().__init__(parent)
+    def __init__(self):
+        super().__init__()
         self.setGeometry(350, 100, 1300, 900)
         self.setWindowTitle('Los Elektrikos')
 
@@ -16,8 +17,9 @@ class MainWindow(QMainWindow):
         self.show()
 
     def __init_view(self):
-        panstwo =  Panstwo()
+
         buttons_trybow_panel = Buttons_trybow_panel()
+
 
         # Tworzenie głównego widgetu
         main_widget = QWidget(self)

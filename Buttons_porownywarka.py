@@ -15,9 +15,12 @@ class Buttons_lista_panstw(QWidget):
     def __init__(self):
         super().__init__()
         self.__buttons = []
-        self.lista_panstw = Lista_panstw()
+        self.__lista_panstw = Lista_panstw()  # tutAJ BEDZIE Z FILTROWANIE TO DO
+        self.__lista = self.__lista_panstw.daj_panstwa()
 
-        for panstwo in self.lista_panstw:
+        for panstwo in self.__lista:
+            self.__buttons.append(Button_panstwo(panstwo))
+            self.setLayout(QVBoxLayout())
 
 
 
