@@ -16,11 +16,11 @@ class Wejscie(ABC): #interface
         pass
 
 class Wejscie_xlsx(Wejscie): #dajemy scierzke zwraca nam obiekt klasy Lista_panstw
-    def __init__(self, scierzka):
-        self.scierzka = scierzka
+    def __init__(self, sciezka):
+        self.sciezka = sciezka
 
     def czytaj(self):
-        wynik = self.__xlsx_do_pandas(self.scierzka)
+        wynik = self.__xlsx_do_pandas(self.sciezka)
         wynik = self.__kondycjonuj(wynik)
         wynik = self.__stworz_obiekty(wynik[0], wynik[1])
         return wynik
