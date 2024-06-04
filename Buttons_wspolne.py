@@ -36,14 +36,14 @@ class Button_Wczytywanie(QPushButton):
         super().__init__("Wczytywanie")
         self.clicked.connect(self.klik)
         self.click_state = False
-        self.xlsx_czytaj = Wejscie_xlsx(r"C:\Users\olech\Desktop\road_eqr_carpda_spreadsheet.xlsx")
+        self.xlsx_czytaj = Wejscie_xlsx(
+            r"C:\Users\olech\Desktop\road_eqr_carpda_spreadsheet.xlsx")  # Tutaj miejsce do podania linku
 
     def klik(self):
         self.click_state = not self.click_state
         if self.click_state == True:
             print("tutaj bedzie odwolanie do wczytywanie xlsx i txt")
             self.setStyleSheet("background-color: green; color: white;")
-            # Tutaj miejsce do podania linku
             panstwa_org_klik = self.xlsx_czytaj.czytaj()
             return panstwa_org_klik
 

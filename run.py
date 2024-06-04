@@ -7,6 +7,7 @@ from PanstwaM import Panstwo
 
 lista_panstw_oryginal = []
 
+
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -17,9 +18,7 @@ class MainWindow(QMainWindow):
         self.show()
 
     def __init_view(self):
-
         buttons_trybow_panel = Buttons_trybow_panel()
-
 
         # Tworzenie głównego widgetu
         main_widget = QWidget(self)
@@ -29,6 +28,7 @@ class MainWindow(QMainWindow):
 
         # Ustawienie głównego widgetu jako centralny widget
         self.setCentralWidget(main_widget)
+
 
 def main():
     app = QApplication(sys.argv)
