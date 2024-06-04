@@ -2,7 +2,7 @@ from PyQt6.QtWidgets import QTabWidget, QPushButton, QVBoxLayout, QWidget
 from Dane_IO import Wejscie_xlsx
 from Buttons_porownywarka import Buttons_lista_panstw
 from PanstwaM import Panstwo
-from run import plik_z_danymi
+from STALE import plik_z_danymi
 
 
 class Buttons_trybow_panel(QTabWidget):

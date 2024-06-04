@@ -1,7 +1,7 @@
 from PyQt6.QtWidgets import QVBoxLayout, QPushButton, QWidget
 from Dane_IO import Fabryka_wejscia, Wejscie_xlsx
 from PanstwaM import Panstwo, Lista_panstw
-from run import plik_z_danymi
+from STALE import plik_z_danymi
 
 class Button_panstwo(QPushButton):
     def __init__(self, btn_name):
