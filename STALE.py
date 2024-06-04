@@ -1,4 +1,4 @@
-plik_z_danymi = r"C:\Users\User\Desktop\road_eqr_carpda_spreadsheet.xlsx"
+plik_z_danymi = "C:\\Users\\User\\Desktop\\road_eqr_carpda_spreadsheet.xlsx"
 
 class Dane:
     def __init__(self):

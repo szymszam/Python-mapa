@@ -1,5 +1,5 @@
 from PyQt6.QtWidgets import QTabWidget, QPushButton, QVBoxLayout, QWidget
-from Dane_IO import Wejscie_xlsx
+from Dane_IO import Fabryka_wejscia
 from Buttons_porownywarka import Buttons_lista_panstw
 from PanstwaM import Panstwo
 from STALE import plik_z_danymi
@@ -37,14 +37,12 @@ class Button_Wczytywanie(QPushButton):
         super().__init__("Wczytywanie")
         self.clicked.connect(self.klik)
         self.click_state = False
-        self.xlsx_czytaj = Wejscie_xlsx(plik_z_danymi)  # Tutaj miejsce do podania linku
 
     def klik(self):
         self.click_state = not self.click_state
         if self.click_state == True:
             print("tutaj bedzie odwolanie do wczytywanie xlsx i txt")
             self.setStyleSheet("background-color: green; color: white;")
-            self.xlsx_czytaj.czytaj()
 
         else:
             self.setStyleSheet("background-color: red; color: white;")

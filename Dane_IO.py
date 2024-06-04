@@ -3,10 +3,10 @@ import pandas as pd
 from PanstwaM import Panstwo, Lista_panstw
 
 class Fabryka_wejscia(): #wybiera i tworzy odpowiednie wejscie zczytujace
-    def daj_wejscie(self, scierzka):
-        rozszerzenie = scierzka.split(".")[-1]
+    def daj_wejscie(self, sciezka):
+        rozszerzenie = sciezka.split(".")[-1]
         if rozszerzenie == "xlsx":
-            return Wejscie_xlsx(scierzka)
+            return Wejscie_xlsx(sciezka)
         else:
             raise ValueError("Nieobslugiwany typ pliku")
 
