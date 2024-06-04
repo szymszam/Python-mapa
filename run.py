@@ -8,6 +8,7 @@ from PanstwaM import Panstwo
 lista_panstw_oryginal = []
 
 
+
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()

@@ -31,6 +31,7 @@ class Buttons_trybow_panel(QTabWidget):
         self.addTab(tab3, "Mapa")
 
 
+
 class Button_Wczytywanie(QPushButton):
     def __init__(self):
         super().__init__("Wczytywanie")

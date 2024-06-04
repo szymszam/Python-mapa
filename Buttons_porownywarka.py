@@ -11,6 +11,7 @@ class Button_panstwo(QPushButton):
         print(self.text())
 
 
+
 class Buttons_lista_panstw(QWidget):
     def __init__(self):
         super().__init__()
