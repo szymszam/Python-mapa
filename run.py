@@ -5,6 +5,8 @@ from Buttons_wspolne import Buttons_trybow_panel
 from Buttons_porownywarka import Buttons_lista_panstw
 from PanstwaM import Panstwo
 
+plik_z_danymi = r"C:\Users\User\Desktop\road_eqr_carpda_spreadsheet.xlsx" #zmienna uzywana w całym programie
+
 lista_panstw_oryginal = []
 
 

@@ -1,6 +1,7 @@
 from PyQt6.QtWidgets import QVBoxLayout, QPushButton, QWidget
-from PanstwaM import Lista_panstw
-
+from Dane_IO import Fabryka_wejscia, Wejscie_xlsx
+from PanstwaM import Panstwo, Lista_panstw
+from run import plik_z_danymi
 
 class Button_panstwo(QPushButton):
     def __init__(self, btn_name):
@@ -16,7 +17,11 @@ class Buttons_lista_panstw(QWidget):
     def __init__(self):
         super().__init__()
         self.__buttons = []
-        self.__lista_panstw = Lista_panstw()  # tutAJ BEDZIE Z FILTROWANIE TO DO
+        czytajnik = Fabryka_wejscia()
+        czytaj_xlsx = czytajnik.daj_wejscie( plik_z_danymi)
+        lista = czytaj_xlsx.czytaj()
+
+        self.__lista_panstw = lista  # tutAJ BEDZIE Z FILTROWANIE TO DO
 
         self.__lista = self.__lista_panstw.daj_panstwa()
 

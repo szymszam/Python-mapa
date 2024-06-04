@@ -1,5 +1,6 @@
 import sys
-import PyQt6.QtWidgets as qtw
+import PyQt5.QtWidgets as qtg
+import PyQt5.
 
 
 class MainWindow(qtw.QWidget):
