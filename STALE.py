@@ -1,5 +1,5 @@
-plik_z_danymi = "C:\\Users\\User\\Desktop\\road_eqr_carpda_spreadsheet.xlsx"
 from PanstwaM import Panstwo, Lista_panstw
+
 class Dane:
     def __init__(self):
         polska = Panstwo("Polska", [1, 2, 4])
@@ -7,7 +7,6 @@ class Dane:
         self.__panstwa_orginalne = 0
         self.__panstwa_zaznaczone = 0
         self.__panstwa_filtrowane = 0
-        #self.__panstwa_filtrowane = Lista_panstw([polska, niemcy])
 
     def daj_orginalne(self):
         return self.__panstwa_orginalne
@@ -27,4 +26,14 @@ class Dane:
     def zamien_filtrowane(self, nowa_lista):
         self.__panstwa_filtrowane = nowa_lista
 
+
 DANE = Dane()
+
+# polska = Panstwo("Polska", [1, 2, 4])
+# niemcy = Panstwo("Niemcy", [1, 3, 4])
+# lista = Lista_panstw([polska, niemcy])
+# DANE.zamien_orginalne(lista)
+# DANE.zamien_filtrowane(lista)
+
+
+plik_z_danymi = "C:\\Users\\User\\Desktop\\road_eqr_carpda_spreadsheet.xlsx"

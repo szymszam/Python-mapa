@@ -1,9 +1,28 @@
-from PyQt6.QtWidgets import QTabWidget, QPushButton, QVBoxLayout, QWidget
+from PyQt6.QtWidgets import QTabWidget, QPushButton, QVBoxLayout, QWidget, QMainWindow
 from Dane_IO import Fabryka_wejscia
 from Buttons_porownywarka import Buttons_lista_panstw
-from PanstwaM import Panstwo
 from STALE import plik_z_danymi, DANE
 
+class MainWindow(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.setGeometry(350, 100, 1300, 900)
+        self.setWindowTitle('Los Elektrikos')
+
+        self.__init_view()
+        self.show()
+
+    def __init_view(self):
+        buttons_trybow_panel = Buttons_trybow_panel()
+
+        # Tworzenie głównego widgetu
+        main_widget = QWidget(self)
+        main_layout = QVBoxLayout()
+        main_layout.addWidget(buttons_trybow_panel)
+        main_widget.setLayout(main_layout)
+
+        # Ustawienie głównego widgetu jako centralny widget
+        self.setCentralWidget(main_widget)
 
 class Buttons_trybow_panel(QTabWidget):
     def __init__(self):
