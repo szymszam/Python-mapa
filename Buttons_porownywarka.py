@@ -1,4 +1,4 @@
-from PyQt6.QtWidgets import QVBoxLayout, QPushButton, QWidget
+from PyQt6.QtWidgets import QVBoxLayout, QPushButton, QWidget, QLineEdit
 from Dane_IO import Fabryka_wejscia, Wejscie_xlsx
 from PanstwaM import Panstwo, Lista_panstw
 from STALE import plik_z_danymi, DANE
@@ -13,7 +13,6 @@ class Button_panstwo(QPushButton):
         print(self.text())
 
 
-
 class Buttons_lista_panstw(QWidget):
     def __init__(self):
         super().__init__()
@@ -22,6 +21,7 @@ class Buttons_lista_panstw(QWidget):
         self.__dane = DANE.daj_filtrowane()
         self.__dane = self.__dane.daj_panstwa()
         self.stworz_przyciski()
+
     def stworz_przyciski(self):
         for i in range(len(self.__dane)):
             tytul = self.__dane[i].daj_nazwa()
@@ -34,3 +34,15 @@ class Buttons_lista_panstw(QWidget):
 
         self.setLayout(layout)
 
+
+class Searchbar(QWidget):
+    def __init__(self, placeholder_text="Filtruj"):
+        super().__init__()
+        self.stworz_searchbar(placeholder_text)
+
+    def stworz_searchbar(self, placeholder_text):
+        self.line_edit = QLineEdit()
+        self.line_edit.setPlaceholderText(placeholder_text)
+        layout = QVBoxLayout()
+        layout.addWidget(self.line_edit)
+        self.setLayout(layout)

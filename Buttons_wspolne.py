@@ -1,6 +1,6 @@
-from PyQt6.QtWidgets import QTabWidget, QPushButton, QVBoxLayout, QWidget, QMainWindow
+from PyQt6.QtWidgets import QTabWidget, QPushButton, QVBoxLayout, QWidget, QMainWindow, QLabel
 from Dane_IO import Fabryka_wejscia
-from Buttons_porownywarka import Buttons_lista_panstw
+from Buttons_porownywarka import Buttons_lista_panstw, Searchbar
 from STALE import plik_z_danymi, DANE
 
 class MainWindow(QMainWindow):
@@ -42,6 +42,7 @@ class Buttons_trybow_panel(QTabWidget):
         # Tworzenie widgetu dla drugiej zakładki
         self.tab2 = QWidget()
         self.tab2_layout = QVBoxLayout()
+        self.tab2_layout.addWidget(Searchbar())
         self.tab2_layout.addWidget(Buttons_lista_panstw())
         self.tab2.setLayout(self.tab2_layout)
     def stworz_tab3(self):
@@ -57,7 +58,6 @@ class Buttons_trybow_panel(QTabWidget):
         for i in reversed(range(self.tab2_layout.count())):
             widget_to_remove = self.tab2_layout.itemAt(i).widget()
             self.tab2_layout.removeWidget(widget_to_remove)
-            widget_to_remove.setParent(None)
         self.stworz_tab2()
 
 
@@ -75,4 +75,7 @@ class Button_Wczytywanie(QPushButton):
             global DANE
             DANE.zamien_orginalne(dane)
             DANE.zamien_filtrowane(dane)
-            #self.__parent_panel.nadpisz_tab2()
+            #print(DANE.daj_orginalne().daj_panstwa()[1].daj_nazwa())
+            print("Dane załadowane:", DANE.daj_orginalne().daj_panstwa())
+            self.__parent_panel.nadpisz_tab2()
+
