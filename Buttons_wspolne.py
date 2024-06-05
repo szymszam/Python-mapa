@@ -2,7 +2,7 @@ from PyQt6.QtWidgets import QTabWidget, QPushButton, QVBoxLayout, QWidget
 from Dane_IO import Fabryka_wejscia
 from Buttons_porownywarka import Buttons_lista_panstw
 from PanstwaM import Panstwo
-from STALE import plik_z_danymi
+from STALE import plik_z_danymi, DANE
 
 
 class Buttons_trybow_panel(QTabWidget):
@@ -39,13 +39,10 @@ class Button_Wczytywanie(QPushButton):
         self.click_state = False
 
     def klik(self):
-        self.click_state = not self.click_state
-        if self.click_state == True:
-            print("tutaj bedzie odwolanie do wczytywanie xlsx i txt")
             self.setStyleSheet("background-color: green; color: white;")
-
-        else:
-            self.setStyleSheet("background-color: red; color: white;")
-
-    def daj_wczytane(self):
-        return self.xls
+            czytajnik = Fabryka_wejscia()
+            czytajnik = czytajnik.daj_wejscie(plik_z_danymi)
+            dane = czytajnik.czytaj()
+            global DANE
+            DANE.zamien_orginalne(dane)
+            DANE.zamien_filtrowane(dane)
