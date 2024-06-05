@@ -17,6 +17,8 @@ class Panstwo(): #reprezentcja pojedynczego panstwa
             return self.__nazwa == other.__nazwa
         return False
 
+    def __eq__(self, other):
+        return self.__nazwa == other.__nazwa
 
 class Lista_panstw(): #Bedzie robić za panstwa original i panstwa-
     def __init__(self, lista_obiektow_panstwo = []):
