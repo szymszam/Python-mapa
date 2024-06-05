@@ -3,7 +3,6 @@ from Dane_IO import Fabryka_wejscia, Wejscie_xlsx
 from PanstwaM import Panstwo, Lista_panstw
 from STALE import plik_z_danymi, DANE
 
-
 class Button_panstwo(QPushButton):
     def __init__(self, btn_name):
         super().__init__(btn_name)
@@ -11,7 +10,6 @@ class Button_panstwo(QPushButton):
 
     def klik(self):
         print(self.text())
-
 
 class Buttons_lista_panstw(QWidget):
     def __init__(self):

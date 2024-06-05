@@ -1,37 +1,54 @@
-import sys
-from PyQt6.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout, QPushButton
+from PyQt6.QtWidgets import QApplication, QMainWindow, QPushButton, QVBoxLayout, QWidget, QTabWidget
 
-class MainWindow(QMainWindow):
+class OldButton(QPushButton):
+    def __init__(self, parent=None):
+        super().__init__("Stwórz przycisk", parent)
+        self.clicked.connect(self.create_button)
+
+    def create_button(self):
+        new_button = QPushButton("Stary przycisk")
+        self.parent().layout().addWidget(new_button)
+
+class NewButton(QPushButton):
+    def __init__(self, parent=None):
+        super().__init__("Nowy przycisk", parent)
+        self.clicked.connect(self.create_button)
+
+    def create_button(self):
+        new_button = QPushButton("Nowy przycisk")
+        self.parent().layout().addWidget(new_button)
+
+class MyWindow(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.setGeometry(350, 100, 600, 400)
-        self.setWindowTitle('Przycisk Tworzący Przycisk')
 
-        self.init_view()
-        self.show()
+        self.setWindowTitle("Przycisk tworzący przycisk")
+        self.setGeometry(100, 100, 400, 300)
 
-    def init_view(self):
-        # Tworzenie głównego widgetu
-        main_widget = QWidget()
-        self.setCentralWidget(main_widget)
+        # Tworzenie zakładek
+        self.tab_widget = QTabWidget()
 
-        # Tworzenie głównego layoutu
-        self.main_layout = QVBoxLayout()
-        main_widget.setLayout(self.main_layout)
+        # Zakładka 1 z przyciskami klasy OldButton
+        self.tab1 = QWidget()
+        layout_tab1 = QVBoxLayout()
+        self.button_create_tab1 = OldButton(self.tab1)
+        layout_tab1.addWidget(self.button_create_tab1)
+        self.tab1.setLayout(layout_tab1)
+        self.tab_widget.addTab(self.tab1, "Zakładka 1")
 
-        # Tworzenie przycisku tworzącego nowe przyciski
-        self.create_button = QPushButton('Stwórz nowy przycisk')
-        self.create_button.clicked.connect(self.create_new_button)
-        self.main_layout.addWidget(self.create_button)
+        # Zakładka 2 z przyciskami klasy NewButton
+        self.tab2 = QWidget()
+        layout_tab2 = QVBoxLayout()
+        self.button_create_tab2 = NewButton(self.tab2)
+        layout_tab2.addWidget(self.button_create_tab2)
+        self.tab2.setLayout(layout_tab2)
+        self.tab_widget.addTab(self.tab2, "Zakładka 2")
 
-    def create_new_button(self):
-        # Tworzenie nowego przycisku
-        new_button = QPushButton('Nowy przycisk')
-        new_button.clicked.connect(lambda: print('Kliknięto nowy przycisk'))
-        self.main_layout.addWidget(new_button)
+        # Ustawienie centralnego widgetu
+        self.setCentralWidget(self.tab_widget)
 
 if __name__ == "__main__":
-    app = QApplication(sys.argv)
-    main_window = MainWindow()
-    main_window.show()
-    sys.exit(app.exec())
+    app = QApplication([])
+    window = MyWindow()
+    window.show()
+    app.exec()

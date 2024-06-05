@@ -1,4 +1,4 @@
-from PyQt6.QtWidgets import QTabWidget, QPushButton, QVBoxLayout, QWidget, QMainWindow, QLabel
+from PyQt6.QtWidgets import QTabWidget, QPushButton, QVBoxLayout, QWidget, QMainWindow
 from Dane_IO import Fabryka_wejscia
 from Buttons_porownywarka import Buttons_lista_panstw, Searchbar
 from STALE import plik_z_danymi, DANE
@@ -31,51 +31,62 @@ class Buttons_trybow_panel(QTabWidget):
         self.stworz_tab2()
         self.stworz_tab3()
         self.stworz_taby()
+
     def stworz_tab1(self):
         # Tworzenie widgetu dla pierwszej zakładki
         self.tab1 = QWidget()
         self.tab1_layout = QVBoxLayout()
 
-        self.tab1_layout.addWidget(Button_Wczytywanie(self))
+        self.tab1_layout.addWidget(Button_Wczytywanie(parent_panel=self))
         self.tab1.setLayout(self.tab1_layout)
+
     def stworz_tab2(self):
         # Tworzenie widgetu dla drugiej zakładki
         self.tab2 = QWidget()
         self.tab2_layout = QVBoxLayout()
         self.tab2_layout.addWidget(Searchbar())
-        self.tab2_layout.addWidget(Buttons_lista_panstw())
         self.tab2.setLayout(self.tab2_layout)
+
+    def wyczysc_tab2(self):
+        for i in reversed(range(self.tab2_layout.count())):
+            widget_to_remove = self.tab2_layout.itemAt(i).widget()
+            if widget_to_remove:
+                widget_to_remove.setParent(None)
+
+    def umebluj_tab2(self):
+        self.wyczysc_tab2()
+        self.tab2_layout.addWidget(Buttons_lista_panstw())
+
     def stworz_tab3(self):
         self.tab3 = QWidget()
         self.tab3_layout = QVBoxLayout()
         self.tab3.setLayout(self.tab3_layout)
+
     def stworz_taby(self):
         # Dodawanie zakładek do widgetu
         self.addTab(self.tab1, "Wczytywanie")
         self.addTab(self.tab2, "Porownywarka")
         self.addTab(self.tab3, "Mapa")
-    def nadpisz_tab2(self):
-        for i in reversed(range(self.tab2_layout.count())):
-            widget_to_remove = self.tab2_layout.itemAt(i).widget()
-            self.tab2_layout.removeWidget(widget_to_remove)
-        self.stworz_tab2()
-
 
 class Button_Wczytywanie(QPushButton):
     def __init__(self, parent_panel):
-        super().__init__("Wczytywanie")
-        self.clicked.connect(self.klik)
-        self.__parent_panel = parent_panel
+        super().__init__("Wczytywanie", parent_panel)
+        self.parent_panel = parent_panel
+        self.clicked.connect(self.__klik)
 
-    def klik(self):
-            self.setStyleSheet("background-color: green; color: white;")
-            czytajnik = Fabryka_wejscia()
-            czytajnik = czytajnik.daj_wejscie(plik_z_danymi)
-            dane = czytajnik.czytaj()
-            global DANE
-            DANE.zamien_orginalne(dane)
-            DANE.zamien_filtrowane(dane)
-            #print(DANE.daj_orginalne().daj_panstwa()[1].daj_nazwa())
-            print("Dane załadowane:", DANE.daj_orginalne().daj_panstwa())
-            self.__parent_panel.nadpisz_tab2()
+    def __klik(self):
+        #wczytwanie danych
+        czytajnik = Fabryka_wejscia()
+        czytajnik = czytajnik.daj_wejscie(plik_z_danymi)
+        dane = czytajnik.czytaj()
+        global DANE
+        DANE.zamien_orginalne(dane)
+        DANE.zamien_filtrowane(dane)
 
+        # Wywołanie metod z klasy Buttons_trybow_panel
+        self.parent_panel.stworz_tab2()
+        self.parent_panel.wyczysc_tab2()
+
+        #Kasowanie zakładki całej
+        index = self.parent_panel.indexOf(self.parent_panel.tab1)
+        self.parent_panel.removeTab(index)
