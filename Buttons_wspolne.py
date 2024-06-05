@@ -27,35 +27,45 @@ class MainWindow(QMainWindow):
 class Buttons_trybow_panel(QTabWidget):
     def __init__(self):
         super().__init__()
-
+        self.stworz_tab1()
+        self.stworz_tab2()
+        self.stworz_tab3()
+        self.stworz_taby()
+    def stworz_tab1(self):
         # Tworzenie widgetu dla pierwszej zakładki
-        tab1 = QWidget()
-        tab1_layout = QVBoxLayout()
+        self.tab1 = QWidget()
+        self.tab1_layout = QVBoxLayout()
 
-        tab1_layout.addWidget(Button_Wczytywanie())
-        tab1.setLayout(tab1_layout)
-
+        self.tab1_layout.addWidget(Button_Wczytywanie(self))
+        self.tab1.setLayout(self.tab1_layout)
+    def stworz_tab2(self):
         # Tworzenie widgetu dla drugiej zakładki
-        tab2 = QWidget()
-        tab2_layout = QVBoxLayout()
-        tab2_layout.addWidget(Buttons_lista_panstw())
-        tab2.setLayout(tab2_layout)
-
-        tab3 = QWidget()
-        tab3_layout = QVBoxLayout()
-        tab3.setLayout(tab3_layout)
-
+        self.tab2 = QWidget()
+        self.tab2_layout = QVBoxLayout()
+        self.tab2_layout.addWidget(Buttons_lista_panstw())
+        self.tab2.setLayout(self.tab2_layout)
+    def stworz_tab3(self):
+        self.tab3 = QWidget()
+        self.tab3_layout = QVBoxLayout()
+        self.tab3.setLayout(self.tab3_layout)
+    def stworz_taby(self):
         # Dodawanie zakładek do widgetu
-        self.addTab(tab1, "Wczytywanie")
-        self.addTab(tab2, "Porownywarka")
-        self.addTab(tab3, "Mapa")
+        self.addTab(self.tab1, "Wczytywanie")
+        self.addTab(self.tab2, "Porownywarka")
+        self.addTab(self.tab3, "Mapa")
+    def nadpisz_tab2(self):
+        for i in reversed(range(self.tab2_layout.count())):
+            widget_to_remove = self.tab2_layout.itemAt(i).widget()
+            self.tab2_layout.removeWidget(widget_to_remove)
+            widget_to_remove.setParent(None)
+        self.stworz_tab2()
 
 
 class Button_Wczytywanie(QPushButton):
-    def __init__(self):
+    def __init__(self, parent_panel):
         super().__init__("Wczytywanie")
         self.clicked.connect(self.klik)
-        self.click_state = False
+        self.__parent_panel = parent_panel
 
     def klik(self):
             self.setStyleSheet("background-color: green; color: white;")
@@ -65,3 +75,4 @@ class Button_Wczytywanie(QPushButton):
             global DANE
             DANE.zamien_orginalne(dane)
             DANE.zamien_filtrowane(dane)
+            #self.__parent_panel.nadpisz_tab2()
