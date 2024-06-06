@@ -1,5 +1,5 @@
 from PyQt6.QtWidgets import QVBoxLayout, QPushButton, QWidget, QLineEdit
-from PanstwaM import Panstwo, Lista_panstw, Lista_panstw_z_filtowaniem
+from PanstwaM import Lista_panstw, Lista_panstw_z_filtowaniem
 from STALE import DANE
 
 #Przycisk reprezentujący pojedyńcze państwo

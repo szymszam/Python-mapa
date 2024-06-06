@@ -3,7 +3,7 @@ from Dane_IO import Fabryka_wejscia
 from Buttons_porownywarka import Buttons_lista_panstw, Searchbar
 from STALE import plik_z_danymi, DANE
 from PanstwaM import Lista_panstw_z_filtowaniem
-from Widok_porownywarka import ChartWidget
+from Widok_porownywarka import Wykres
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -51,7 +51,7 @@ class Buttons_trybow_panel(QTabWidget):
         self.tab2.setLayout(self.tab2_layout)
 
         self.__Searchbar = Searchbar(self)
-        self.__Wykres = ChartWidget()
+        self.__Wykres = Wykres()
 
         self.tab2_layout.addWidget(self.__Searchbar, 0, 1)
         self.tab2_layout.addWidget(self.__Wykres, 1, 0)
@@ -93,7 +93,7 @@ class Button_Wczytywanie(QPushButton):
         dane_zczytane = dane_zczytane.daj_panstwa()
         DANE.zamien_filtrowane(Lista_panstw_z_filtowaniem(dane_zczytane))
 
-        # Usunięcie zakładki 1 po wczytaniu danych
+        # Usunięcie zakładki tab1 po wczytaniu danych
         index = self.__glowny_panel.indexOf(self.__glowny_panel.tab1)
         self.__glowny_panel.removeTab(index)
 

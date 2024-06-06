@@ -4,7 +4,7 @@ from PyQt6.QtWidgets import QWidget, QVBoxLayout
 from STALE import DANE
 
 
-class ChartWidget(QWidget):
+class Wykres(QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
 
