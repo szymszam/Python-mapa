@@ -3,7 +3,7 @@ from Dane_IO import Fabryka_wejscia
 from Buttons_porownywarka import Buttons_lista_panstw, Searchbar
 from STALE import plik_z_danymi, DANE
 from PanstwaM import Lista_panstw_z_filtowaniem
-
+from Widok_porownywarka import ChartWidget
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -51,6 +51,7 @@ class Buttons_trybow_panel(QTabWidget):
         self.tab2_layout = QGridLayout()
         self.tab2.setLayout(self.tab2_layout)
         self.tab2_layout.addWidget(Searchbar(parent = self), 0, 1)
+        self.tab2_layout.addWidget(ChartWidget(parent = self), 1, 0)
 
         self.addTab(self.tab2, "Porownywarka")
 
@@ -85,7 +86,6 @@ class Button_Wczytywanie(QPushButton):
         czytajnik = Fabryka_wejscia()
         czytajnik = czytajnik.daj_wejscie(plik_z_danymi)
         dane_zczytane = czytajnik.czytaj()
-        global DANE
         DANE.zamien_orginalne(dane_zczytane)
         dane_zczytane = dane_zczytane.daj_panstwa()
         DANE.zamien_filtrowane(Lista_panstw_z_filtowaniem(dane_zczytane))

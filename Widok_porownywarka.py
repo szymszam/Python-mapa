@@ -1,25 +1,43 @@
-from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg
-from matplotlib.figure import Figure
+import matplotlib.pyplot as plt
+from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg as FigureCanvas
+from PyQt6.QtWidgets import QWidget, QVBoxLayout
 
 
-class wykres(FigureCanvasQTAgg):
-    def __init__(self, width=5, height=4, dpi=100):
-        self.__fig = Figure(figsize=(width, height), dpi=dpi)
-        super().__init__(self.__fig)
+class ChartWidget(QWidget):
+    def __init__(self, parent=None):
+        super().__init__(parent)
 
-    def dodaj_nowy_wykres(self, name, color):
-        if self.__axes is None:
-            self.__axes = self.__fig.add_subplot(111)
+        # Utwórz układ pionowy
+        layout = QVBoxLayout(self)
+        self.setLayout(layout)
 
-        x_start, x_end = 2015, 2024 # tutaj jest zakres lat
-        xx = range(x_start, x_end)
-        yy= [23, 45, 56, 78, 89, 1, 2, 3, 5, 12]
-        self.__axes.plot(xx, yy, color=color)
-        self.__axes.legend()
-        self.draw()
+        # Utwórz obiekt figury i oś
+        self.figure, self.ax = plt.subplots()
 
+        # Utwórz kanvas dla figury
+        self.canvas = FigureCanvas(self.figure)
 
-class lata():
-    def __init__(self):
-        pass
+        # Dodaj kanvas do układu
+        layout.addWidget(self.canvas)
 
+        # Ustawanie tytułów
+        self.ax.set_title("Wykres")
+        self.ax.set_xlabel("Oś X")
+        self.ax.set_ylabel("Oś Y")
+
+        # Inicjalizuj dane
+        self.categories = ['A', 'B', 'C', 'D', 'E']
+        self.values = [10, 20, 15, 25, 30]
+
+        # Dodaj przykładowe dane do wykresu
+        self.update_chart()
+
+    def update_chart(self):
+        # Usuń poprzednie dane
+        self.ax.clear()
+
+        # Dodaj nowe dane
+        self.ax.bar(self.categories, self.values)
+
+        # Odśwież wykres
+        self.canvas.draw()
