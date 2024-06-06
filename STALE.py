@@ -25,7 +25,3 @@ class Dane:
 
 
 DANE = Dane()
-
-plik_z_danymi = "C:\\Users\\User\\Desktop\\road_eqr_carpda_spreadsheet.xlsx"
-
-#plik_z_danymi = r"C:\Users\olech\Desktop\road_eqr_carpda_spreadsheet.xlsx"
