@@ -1,8 +1,9 @@
 from PyQt6.QtWidgets import QVBoxLayout, QPushButton, QWidget, QLineEdit
 from Dane_IO import Fabryka_wejscia, Wejscie_xlsx
-from PanstwaM import Panstwo, Lista_panstw
-from STALE import plik_z_danymi, DANE
+from PanstwaM import Panstwo, Lista_panstw, Lista_panstw_z_filtowaniem
+from STALE import DANE
 
+#Przycisk reprezentujący pojedyńcze państwo
 class Button_panstwo(QPushButton):
     def __init__(self, btn_name):
         super().__init__(btn_name)
@@ -11,36 +12,50 @@ class Button_panstwo(QPushButton):
     def klik(self):
         print(self.text())
 
+#Wiget zawierający przyciski państw pod searchbarem
 class Buttons_lista_panstw(QWidget):
     def __init__(self):
         super().__init__()
-        self.__przyciski = []
-        global DANE
-        self.__dane = DANE.daj_filtrowane()
-        self.__dane = self.__dane.daj_panstwa()
         self.stworz_przyciski()
 
     def stworz_przyciski(self):
-        for i in range(len(self.__dane)):
-            tytul = self.__dane[i].daj_nazwa()
-            self.__przyciski.append(Button_panstwo(tytul))
+        dane = DANE.daj_filtrowane().daj_panstwa()
+        przyciski = []
+
+        for i in range(len(dane)):
+            tytul = dane[i].daj_nazwa()
+            przyciski.append(Button_panstwo(tytul))
 
         layout = QVBoxLayout()
-
-        for btn in self.__przyciski:
+        for btn in przyciski:
             layout.addWidget(btn)
 
         self.setLayout(layout)
 
-
+#Wiget zawierający searchbar i przycisk do niego
 class Searchbar(QWidget):
-    def __init__(self, placeholder_text="Filtruj"):
+    def __init__(self, placeholder_text="Wpisz termin"):
         super().__init__()
         self.stworz_searchbar(placeholder_text)
 
+    #tworzy searchbar i guzik
     def stworz_searchbar(self, placeholder_text):
         self.line_edit = QLineEdit()
         self.line_edit.setPlaceholderText(placeholder_text)
+        self.save_button = QPushButton("Szukaj")
+        self.save_button.clicked.connect(self.filtruj_searchbar)
+
         layout = QVBoxLayout()
         layout.addWidget(self.line_edit)
+        layout.addWidget(self.save_button)
         self.setLayout(layout)
+
+    #funkcja dzialajaca po kjliknieciu guzika szukaj aktualnie zmienia wartosc DANE.panstwa_filtowane
+    def filtruj_searchbar(self):
+        temp = DANE.daj_filtrowane()
+        temp = Lista_panstw_z_filtowaniem(temp)
+        temp.filtruj_liste(self.line_edit.text(), DANE.daj_orginalne().daj_panstwa())
+        DANE.zamien_filtrowane(temp)
+        for panstwo in DANE.daj_filtrowane().daj_panstwa():
+            print(panstwo.daj_nazwa())
+        print("--------------------------")
