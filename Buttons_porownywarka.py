@@ -5,15 +5,15 @@ from STALE import DANE
 
 #Przycisk reprezentujący pojedyńcze państwo
 class Button_panstwo(QPushButton):
-    def __init__(self, panstwo_reprezentowane):
+    def __init__(self, panstwo_reprezentowane, parent = None):
         super().__init__(panstwo_reprezentowane.daj_nazwa())
+        self.__parent = parent
         self.__panstwo_reprezentowane = panstwo_reprezentowane #Obiekt panstwa które reprezentuje
         self.clicked.connect(self.klik)
         self.click_state = False
 
     def klik(self):
         podglad = DANE.daj_zaznaczone().daj_panstwa()
-        self.click_state = not self.click_state
 
         if self.__panstwo_reprezentowane not in podglad:
              podglad.append(self.__panstwo_reprezentowane)
@@ -23,10 +23,7 @@ class Button_panstwo(QPushButton):
               podglad.remove(self.__panstwo_reprezentowane)
               DANE.zamien_zaznaczone(Lista_panstw(podglad))
 
-        for panstwo in DANE.daj_zaznaczone().daj_panstwa():
-               print(panstwo)
-        print("----------------------")
-
+        self.click_state = not self.click_state
         if self.click_state == True:
             self.setStyleSheet("background-color: lightblue; color: white;")
         else:
@@ -82,8 +79,4 @@ class Searchbar(QWidget):
         DANE.zamien_filtrowane(temp)
         self.__parent.wyczysc_tab2()
         self.__parent.zapelnij_tab2()
-
-        # for panstwo in DANE.daj_filtrowane().daj_panstwa():
-        #     print(panstwo.daj_nazwa())
-        # print("--------------------------")
 

@@ -5,6 +5,10 @@ from STALE import plik_z_danymi, DANE
 from PanstwaM import Lista_panstw_z_filtowaniem
 from Widok_porownywarka import ChartWidget
 
+
+
+
+
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -25,6 +29,11 @@ class MainWindow(QMainWindow):
 
         # Ustawienie głównego widgetu jako centralny widget
         self.setCentralWidget(main_widget)
+
+
+
+
+
 
 
 class Buttons_trybow_panel(QTabWidget):
@@ -50,21 +59,27 @@ class Buttons_trybow_panel(QTabWidget):
         self.tab2 = QWidget()
         self.tab2_layout = QGridLayout()
         self.tab2.setLayout(self.tab2_layout)
-        self.tab2_layout.addWidget(Searchbar(parent = self), 0, 1)
-        self.tab2_layout.addWidget(ChartWidget(parent = self), 1, 0)
+
+        self.tab2_layout.addWidget(Searchbar(parent=self), 0, 1)
+
+        self.__Wykres = ChartWidget()
+        self.tab2_layout.addWidget(self.__Wykres, 1, 0)
 
         self.addTab(self.tab2, "Porownywarka")
 
-    # czysci zawartość 2 tablicy (mocny prototyp)
+    # czysci guziki panstw z tablicy 2
     def wyczysc_tab2(self):
         for i in reversed(range(self.tab2_layout.count())):
             widget_to_remove = self.tab2_layout.itemAt(i).widget()
             if isinstance(widget_to_remove, Buttons_lista_panstw):
                 widget_to_remove.setParent(None)
 
-    # zapełnia tab 2 searchbarem guzikiem i gizikami panstw
+    # zapełnia tab 2 searchbarem, jego guzikiem i guzikami panstw
     def zapelnij_tab2(self):
         self.tab2_layout.addWidget(Buttons_lista_panstw(), 1, 1)
+
+    def przeladuj_wykres(self):
+        self.__Wykres.zaladuj_wykres()
 
     def stworz_tab3(self):
         # Tworzenie widgetu dla trzeciej zakładki
@@ -73,6 +88,9 @@ class Buttons_trybow_panel(QTabWidget):
         self.tab3.setLayout(self.tab3_layout)
 
         self.addTab(self.tab3, "Mapa")
+
+
+
 
 
 class Button_Wczytywanie(QPushButton):

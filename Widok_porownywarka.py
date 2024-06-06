@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg as FigureCanvas
 from PyQt6.QtWidgets import QWidget, QVBoxLayout
+from STALE import DANE
 
 
 class ChartWidget(QWidget):
@@ -22,22 +23,43 @@ class ChartWidget(QWidget):
 
         # Ustawanie tytułów
         self.ax.set_title("Wykres")
-        self.ax.set_xlabel("Oś X")
-        self.ax.set_ylabel("Oś Y")
+        self.ax.set_xlabel("Lata")
+        self.ax.set_ylabel("Liczba aut")
 
         # Inicjalizuj dane
-        self.categories = ['A', 'B', 'C', 'D', 'E']
-        self.values = [10, 20, 15, 25, 30]
+        self.__Panstwa = {}  # Słownik przechowujący serie danych {label: (categories, values)}
 
         # Dodaj przykładowe dane do wykresu
-        self.update_chart()
+        self.zaladuj_wykres()
 
-    def update_chart(self):
+
+    def zaladuj_wykres(self):
+        self.__Panstwa = {}
+        for panstwo in DANE.daj_zaznaczone().daj_panstwa():
+            nazwa = panstwo.daj_nazwa()
+            ilosci = panstwo.daj_ilosc()
+            dlugosc = len(ilosci)  # Pobranie długości listy ilości aut
+            categories = [x + 2013 for x in range(dlugosc)]
+            self.__Panstwa[nazwa] = [ilosci, categories]
+
         # Usuń poprzednie dane
         self.ax.clear()
 
+        # Liczba serii danych
+        num_series = len(self.__Panstwa)
+
+        # Szerokość pojedynczego słupka
+        bar_width = 0.35
+
+        # Przesunięcie dla każdej serii danych
+        bar_offsets = [-0.5 * bar_width + i * bar_width for i in range(num_series)]
+
         # Dodaj nowe dane
-        self.ax.bar(self.categories, self.values)
+        for i, (label, (values, categories)) in enumerate(self.__Panstwa.items()):
+            self.ax.bar([x + bar_offsets[i] for x in categories], values, label=label, width=bar_width)
+
+        # Ustaw legendę
+        self.ax.legend()
 
         # Odśwież wykres
         self.canvas.draw()
