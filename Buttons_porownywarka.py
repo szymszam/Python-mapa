@@ -5,12 +5,14 @@ from STALE import DANE
 
 #Przycisk reprezentujący pojedyńcze państwo
 class Button_panstwo(QPushButton):
-    def __init__(self, btn_name):
-        super().__init__(btn_name)
+    def __init__(self, panstwo_reprezentowane):
+        super().__init__(panstwo_reprezentowane.daj_nazwa())
+        self.__panstwo_reprezentowane = panstwo_reprezentowane #Obiekt panstwa które reprezentuje
         self.clicked.connect(self.klik)
 
     def klik(self):
         print(self.text())
+        print(self.__panstwo_reprezentowane.daj_nazwa())
 
 #Wiget zawierający przyciski państw pod searchbarem
 class Buttons_lista_panstw(QWidget):
@@ -23,8 +25,7 @@ class Buttons_lista_panstw(QWidget):
         przyciski = []
 
         for i in range(len(dane)):
-            tytul = dane[i].daj_nazwa()
-            przyciski.append(Button_panstwo(tytul))
+            przyciski.append(Button_panstwo(dane[i]))
 
         layout = QVBoxLayout()
         for btn in przyciski:
