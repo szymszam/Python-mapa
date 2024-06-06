@@ -50,6 +50,7 @@ class Buttons_trybow_panel(QTabWidget):
         self.tab2 = QWidget()
         self.tab2_layout = QVBoxLayout()
         self.tab2.setLayout(self.tab2_layout)
+        self.tab2_layout.addWidget(Searchbar())
 
         self.addTab(self.tab2, "Porownywarka")
 
@@ -62,7 +63,6 @@ class Buttons_trybow_panel(QTabWidget):
 
     #zapełnia tab 2 searchbarem guzikiem i gizikami panstw
     def zapelnij_tab2(self):
-        self.tab2_layout.addWidget(Searchbar())
         self.tab2_layout.addWidget(Buttons_lista_panstw())
 
     def stworz_tab3(self):
@@ -97,5 +97,4 @@ class Button_Wczytywanie(QPushButton):
         # Tworzenie zakładek 2 i 3 i zapełnienie zakładki 2
         self.parent_panel.stworz_tab2()
         self.parent_panel.stworz_tab3()
-        self.parent_panel.wyczysc_tab2()
         self.parent_panel.zapelnij_tab2()
