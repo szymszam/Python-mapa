@@ -11,8 +11,23 @@ class Button_panstwo(QPushButton):
         self.clicked.connect(self.klik)
 
     def klik(self):
-        print(self.text())
-        print(self.__panstwo_reprezentowane.daj_nazwa())
+        podglad = DANE.daj_zaznaczone().daj_panstwa()
+
+        if self.__panstwo_reprezentowane not in podglad:
+            podglad.append(self.__panstwo_reprezentowane)
+            DANE.zamien_zaznaczone(Lista_panstw(podglad))
+
+        elif self.__panstwo_reprezentowane in podglad:
+            podglad.remove(self.__panstwo_reprezentowane)
+            DANE.zamien_zaznaczone(Lista_panstw(podglad))
+
+        for panstwo in DANE.daj_zaznaczone().daj_panstwa():
+            print(panstwo)
+        print("----------------------")
+
+
+
+
 
 #Wiget zawierający przyciski państw pod searchbarem
 class Buttons_lista_panstw(QWidget):

@@ -1,8 +1,9 @@
+from PanstwaM import  Lista_panstw, Lista_panstw_z_filtowaniem
 class Dane:
     def __init__(self):
-        self.__panstwa_orginalne = None
-        self.__panstwa_zaznaczone = None
-        self.__panstwa_filtrowane = None
+        self.__panstwa_orginalne = Lista_panstw()
+        self.__panstwa_zaznaczone = Lista_panstw()
+        self.__panstwa_filtrowane = Lista_panstw_z_filtowaniem()
 
     def daj_orginalne(self):
         return self.__panstwa_orginalne

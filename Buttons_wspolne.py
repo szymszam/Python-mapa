@@ -3,6 +3,8 @@ from Dane_IO import Fabryka_wejscia
 from Buttons_porownywarka import Buttons_lista_panstw, Searchbar
 from STALE import plik_z_danymi, DANE
 from PanstwaM import Lista_panstw_z_filtowaniem
+
+
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -23,6 +25,7 @@ class MainWindow(QMainWindow):
 
         # Ustawienie głównego widgetu jako centralny widget
         self.setCentralWidget(main_widget)
+
 
 class Buttons_trybow_panel(QTabWidget):
     #Gdy powstaje obiekt to powstaje tylko jedna zakładka automatycznie reszte trzeba metodami
@@ -70,6 +73,7 @@ class Buttons_trybow_panel(QTabWidget):
 
         self.addTab(self.tab3, "Mapa")
 
+
 class Button_Wczytywanie(QPushButton):
     def __init__(self, parent_panel):
         super().__init__("Wczytywanie", parent_panel)
@@ -84,8 +88,7 @@ class Button_Wczytywanie(QPushButton):
         global DANE
         DANE.zamien_orginalne(dane_zczytane)
         dane_zczytane = dane_zczytane.daj_panstwa()
-        dane_zczytane = Lista_panstw_z_filtowaniem(dane_zczytane)
-        DANE.zamien_filtrowane(dane_zczytane)
+        DANE.zamien_filtrowane(Lista_panstw_z_filtowaniem(dane_zczytane))
 
         # Usunięcie zakładki 1 po wczytaniu danych
         index = self.parent_panel.indexOf(self.parent_panel.tab1)
