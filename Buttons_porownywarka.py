@@ -60,7 +60,6 @@ class Searchbar(QWidget):
         super().__init__()
         self.stworz_searchbar(placeholder_text)
         self.__parent = parent
-        print(type(self.__parent))
 
 
     #tworzy searchbar i guzik
