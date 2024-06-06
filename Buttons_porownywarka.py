@@ -72,6 +72,7 @@ class Searchbar(QWidget):
         temp = Lista_panstw_z_filtowaniem(temp)
         temp.filtruj_liste(self.line_edit.text(), DANE.daj_orginalne().daj_panstwa())
         DANE.zamien_filtrowane(temp)
+
         for panstwo in DANE.daj_filtrowane().daj_panstwa():
             print(panstwo.daj_nazwa())
         print("--------------------------")

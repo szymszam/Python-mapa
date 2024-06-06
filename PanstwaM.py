@@ -24,6 +24,12 @@ class Lista_panstw(): #Bedzie robić za panstwa original i panstwa-
     def daj_panstwa(self):
         return self.__tablica_panstw
 
+    def dodaj_panstwo(self, panstwo):
+        self.__tablica_panstw.append(panstwo)
+
+    def usun_panstwo(self, panstwo):
+        self.__tablica_panstw.remove(panstwo)
+
     def zeruj_liste(self):
         self.__tablica_panstw = []
 
