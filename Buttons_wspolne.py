@@ -1,14 +1,14 @@
 from PyQt6.QtWidgets import QTabWidget, QPushButton, QVBoxLayout, QWidget, QMainWindow, QGridLayout, QFileDialog
 from Dane_IO import Fabryka_wejscia
 from Buttons_porownywarka import Buttons_lista_panstw, Searchbar
-from STALE import plik_z_danymi, DANE
 from PanstwaM import Lista_panstw_z_filtowaniem
 from Widok_porownywarka import Wykres
 
 
 class MainWindow(QMainWindow):
-    def __init__(self):
+    def __init__(self, DANE_1):
         super().__init__()
+        self.__DANE_1 = DANE_1
         self.setGeometry(350, 100, 1500, 1100)
         self.setWindowTitle('Los Elektrikos')
 
@@ -16,7 +16,7 @@ class MainWindow(QMainWindow):
         self.show()
 
     def __init_view(self):
-        self.buttons_trybow_panel = Buttons_trybow_panel(self)
+        self.buttons_trybow_panel = Buttons_trybow_panel(self, self.__DANE_1)
 
         # Tworzenie głównego widgetu
         main_widget = QWidget(self)
@@ -29,16 +29,19 @@ class MainWindow(QMainWindow):
 
 
 class Buttons_trybow_panel(QTabWidget):
-    def __init__(self, main_window):
+    def __init__(self, main_window, DANE_1):
         super().__init__()
+
         self.main_window = main_window
 
+        self.__DANE_1 = DANE_1
+
         # Tworzenie i dodawanie zakładek
-        self.tab1 = Tab1(self)
+        self.tab1 = Tab1(self, self.__DANE_1)
         self.addTab(self.tab1, "Wczytywanie")
 
     def stworz_tab2(self):
-        self.tab2 = Tab2(self)
+        self.tab2 = Tab2(self, self.__DANE_1)
         self.addTab(self.tab2, "Porownywarka")
 
     def stworz_tab3(self):
@@ -53,22 +56,23 @@ class Buttons_trybow_panel(QTabWidget):
 
 
 class Tab1(QWidget):
-    def __init__(self, parent):
+    def __init__(self, parent, DANE_1):
         super().__init__(parent)
         self.layout = QVBoxLayout(self)
         self.setLayout(self.layout)
 
-        self.layout.addWidget(Button_Wczytywanie(parent))
+        self.layout.addWidget(Button_Wczytywanie(parent, DANE_1))
 
 
 class Tab2(QWidget):
-    def __init__(self, parent):
+    def __init__(self, parent, DANE_1):
         super().__init__(parent)
         self.layout = QGridLayout(self)
         self.setLayout(self.layout)
+        self.__DANE_1 = DANE_1
 
-        self.__Searchbar = Searchbar(self)
-        self.__Wykres = Wykres()
+        self.__Searchbar = Searchbar(self, self.__DANE_1)
+        self.__Wykres = Wykres(self.__DANE_1)
 
         self.layout.addWidget(self.__Searchbar, 0, 1)
         self.layout.addWidget(self.__Wykres, 1, 0)
@@ -80,7 +84,7 @@ class Tab2(QWidget):
                 widget_to_remove.setParent(None)
 
     def zapelnij_bts_panstwa_tab2(self):
-        self.layout.addWidget(Buttons_lista_panstw(self.__Wykres), 1, 1)
+        self.layout.addWidget(Buttons_lista_panstw(self.__Wykres, self.__DANE_1), 1, 1)
 
 
 class Tab3(QWidget):
@@ -94,9 +98,10 @@ class Tab3(QWidget):
 
 
 class Button_Wczytywanie(QPushButton):
-    def __init__(self, glowny_panel):
+    def __init__(self, glowny_panel, DANE_1):
         super().__init__("Wczytywanie")
         self.__glowny_panel = glowny_panel
+        self.__DANE_1 = DANE_1
         self.clicked.connect(self.klik)
 
     def klik(self):
@@ -108,13 +113,15 @@ class Button_Wczytywanie(QPushButton):
             czytajnik = Fabryka_wejscia()
             czytajnik = czytajnik.daj_wejscie(plik)
             dane_zczytane = czytajnik.czytaj()
-            DANE.zamien_orginalne(dane_zczytane)
+            self.__DANE_1.zamien_orginalne(dane_zczytane)
             dane_zczytane = dane_zczytane.daj_panstwa()
-            DANE.zamien_filtrowane(Lista_panstw_z_filtowaniem(dane_zczytane))
+            self.__DANE_1.zamien_filtrowane(Lista_panstw_z_filtowaniem(dane_zczytane))
 
-            # Usunięcie zakładki tab1 po wczytaniu danych
-            index = self.__glowny_panel.indexOf(self.__glowny_panel.tab1)
-            self.__glowny_panel.removeTab(index)
+            # Zmiana tekstu przycisku na "Dane zostały wczytane"
+            self.setText("Dane zostały wczytane")
+
+            # Blokowanie przycisku po naciśnięciu
+            self.setDisabled(True)
 
             # Tworzenie zakładek 2 i 3 i zapełnienie zakładki 2
             self.__glowny_panel.stworz_tab2()

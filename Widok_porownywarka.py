@@ -1,12 +1,12 @@
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg as FigureCanvas
 from PyQt6.QtWidgets import QWidget, QVBoxLayout
-from STALE import DANE
 
 
 class Wykres(QWidget):
-    def __init__(self, parent=None):
-        super().__init__(parent)
+    def __init__(self, DANE_1):
+        super().__init__()
+        self.__DANE_1 = DANE_1
 
         # Utwórz układ pionowy
         layout = QVBoxLayout(self)
@@ -35,7 +35,7 @@ class Wykres(QWidget):
 
     def zaladuj_wykres(self):
         self.__Panstwa = {}
-        for panstwo in DANE.daj_zaznaczone().daj_panstwa():
+        for panstwo in self.__DANE_1.daj_zaznaczone().daj_panstwa():
             nazwa = panstwo.daj_nazwa()
             ilosci = panstwo.daj_ilosc()
             dlugosc = len(ilosci)  # Pobranie długości listy ilości aut

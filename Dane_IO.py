@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 import pandas as pd
-from PanstwaM import Panstwo, Lista_panstw
+from PanstwaM import Panstwo, Lista_panstw, Lista_panstw_z_filtowaniem
 
 class Fabryka_wejscia(): #wybiera i tworzy odpowiednie wejscie zczytujace
     def daj_wejscie(self, sciezka):
@@ -46,3 +46,28 @@ class Wejscie_xlsx(Wejscie): #dajemy scierzke zwraca nam obiekt klasy Lista_pans
             temp = Panstwo(nazwy_panstw[index], dane_panstw[index])
             lista_obiektow_panstwo.append(temp)
         return Lista_panstw(lista_obiektow_panstwo)
+
+class Dane_porownywarka:
+    def __init__(self):
+        self.__panstwa_orginalne = Lista_panstw()
+        self.__panstwa_zaznaczone = Lista_panstw()
+        self.__panstwa_filtrowane = Lista_panstw_z_filtowaniem()
+
+    def daj_orginalne(self):
+        return self.__panstwa_orginalne
+
+    def daj_zaznaczone(self):
+        return self.__panstwa_zaznaczone
+
+    def daj_filtrowane(self):
+        return self.__panstwa_filtrowane
+
+    def zamien_orginalne(self, nowa_lista):
+        self.__panstwa_orginalne = nowa_lista
+
+    def zamien_zaznaczone(self, nowa_lista):
+        self.__panstwa_zaznaczone = nowa_lista
+
+    def zamien_filtrowane(self, nowa_lista):
+        self.__panstwa_filtrowane = nowa_lista
+
