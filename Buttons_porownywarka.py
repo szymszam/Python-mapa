@@ -1,17 +1,19 @@
 from PyQt6.QtWidgets import QVBoxLayout, QPushButton, QWidget, QLineEdit
-
 from PanstwaM import Panstwo, Lista_panstw, Lista_panstw_z_filtowaniem
 from STALE import DANE
 
 #Przycisk reprezentujący pojedyńcze państwo
 class Button_panstwo(QPushButton):
-    def __init__(self, panstwo_reprezentowane, parent = None):
+    def __init__(self, panstwo_reprezentowane, referencja_do_wykresu):
         super().__init__(panstwo_reprezentowane.daj_nazwa())
-        self.__parent = parent
-        self.__panstwo_reprezentowane = panstwo_reprezentowane #Obiekt panstwa które reprezentuje
+        self.__wykres = referencja_do_wykresu
+        self.__panstwo_reprezentowane = panstwo_reprezentowane
         self.clicked.connect(self.klik)
-        self.click_state = False
-
+        if self.__panstwo_reprezentowane in DANE.daj_zaznaczone().daj_panstwa():
+            self.setStyleSheet("background-color: lightblue; color: white;")
+            self.click_state = True
+        else:
+            self.click_state = False
 
     def klik(self):
         podglad = DANE.daj_zaznaczone().daj_panstwa()
@@ -31,21 +33,25 @@ class Button_panstwo(QPushButton):
         else:
             self.setStyleSheet("")
 
+        self.__wykres.zaladuj_wykres()
+
 
 
 
 #Wiget zawierający przyciski państw pod searchbarem
 class Buttons_lista_panstw(QWidget):
-    def __init__(self):
+    def __init__(self, odwolanie_do_wykresu):
         super().__init__()
+        self.__wykres = odwolanie_do_wykresu
         self.stworz_przyciski()
+
 
     def stworz_przyciski(self):
         dane = DANE.daj_filtrowane().daj_panstwa()
         przyciski = []
 
         for i in range(len(dane)):
-            przyciski.append(Button_panstwo(dane[i]))
+            przyciski.append(Button_panstwo(dane[i], self.__wykres))
 
         layout = QVBoxLayout()
         for btn in przyciski:
@@ -56,10 +62,10 @@ class Buttons_lista_panstw(QWidget):
 
 #Wiget zawierający searchbar i przycisk do niego
 class Searchbar(QWidget):
-    def __init__(self, placeholder_text="Wpisz termin", parent=None):
+    def __init__(self, panel_glowny=None):
         super().__init__()
-        self.stworz_searchbar(placeholder_text)
-        self.__parent = parent
+        self.stworz_searchbar("Wpisz termin")
+        self.__panel_glowny = panel_glowny
 
 
     #tworzy searchbar i guzik
@@ -82,6 +88,6 @@ class Searchbar(QWidget):
         temp = Lista_panstw_z_filtowaniem(temp)
         temp.filtruj_liste(self.line_edit.text(), DANE.daj_orginalne().daj_panstwa())
         DANE.zamien_filtrowane(temp)
-        self.__parent.wyczysc_tab2()
-        self.__parent.zapelnij_tab2()
+        self.__panel_glowny.wyczysc_tab2()
+        self.__panel_glowny.zapelnij_tab2()
 

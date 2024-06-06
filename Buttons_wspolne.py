@@ -38,10 +38,9 @@ class Buttons_trybow_panel(QTabWidget):
         # Tworzenie widgetu dla pierwszej zakładki
         self.tab1 = QWidget()
         self.tab1_layout = QVBoxLayout()
-
-        button_wczytywanie = Button_Wczytywanie(parent_panel=self)
-        self.tab1_layout.addWidget(button_wczytywanie)
         self.tab1.setLayout(self.tab1_layout)
+
+        self.tab1_layout.addWidget(Button_Wczytywanie(self))
 
         self.addTab(self.tab1, "Wczytywanie")
 
@@ -50,12 +49,16 @@ class Buttons_trybow_panel(QTabWidget):
         self.tab2 = QWidget()
         self.tab2_layout = QGridLayout()
         self.tab2.setLayout(self.tab2_layout)
-        self.tab2_layout.addWidget(Searchbar(parent = self), 0, 1)
-        self.tab2_layout.addWidget(ChartWidget(parent = self), 1, 0)
+
+        self.__Searchbar = Searchbar(self)
+        self.__Wykres = ChartWidget()
+
+        self.tab2_layout.addWidget(self.__Searchbar, 0, 1)
+        self.tab2_layout.addWidget(self.__Wykres, 1, 0)
 
         self.addTab(self.tab2, "Porownywarka")
 
-    # czysci zawartość 2 tablicy (mocny prototyp)
+    # czysci przyciski panstw z tab2
     def wyczysc_tab2(self):
         for i in reversed(range(self.tab2_layout.count())):
             widget_to_remove = self.tab2_layout.itemAt(i).widget()
@@ -64,7 +67,7 @@ class Buttons_trybow_panel(QTabWidget):
 
     # zapełnia tab 2 searchbarem guzikiem i gizikami panstw
     def zapelnij_tab2(self):
-        self.tab2_layout.addWidget(Buttons_lista_panstw(), 1, 1)
+        self.tab2_layout.addWidget(Buttons_lista_panstw(self.__Wykres), 1, 1)
 
     def stworz_tab3(self):
         # Tworzenie widgetu dla trzeciej zakładki
@@ -76,9 +79,9 @@ class Buttons_trybow_panel(QTabWidget):
 
 
 class Button_Wczytywanie(QPushButton):
-    def __init__(self, parent_panel):
-        super().__init__("Wczytywanie", parent_panel)
-        self.parent_panel = parent_panel
+    def __init__(self, glowny_panel):
+        super().__init__("Wczytywanie")
+        self.__glowny_panel = glowny_panel
         self.clicked.connect(self.klik)
 
     def klik(self):
@@ -91,10 +94,10 @@ class Button_Wczytywanie(QPushButton):
         DANE.zamien_filtrowane(Lista_panstw_z_filtowaniem(dane_zczytane))
 
         # Usunięcie zakładki 1 po wczytaniu danych
-        index = self.parent_panel.indexOf(self.parent_panel.tab1)
-        self.parent_panel.removeTab(index)
+        index = self.__glowny_panel.indexOf(self.__glowny_panel.tab1)
+        self.__glowny_panel.removeTab(index)
 
         # Tworzenie zakładek 2 i 3 i zapełnienie zakładki 2
-        self.parent_panel.stworz_tab2()
-        self.parent_panel.stworz_tab3()
-        self.parent_panel.zapelnij_tab2()
+        self.__glowny_panel.stworz_tab2()
+        self.__glowny_panel.stworz_tab3()
+        self.__glowny_panel.zapelnij_tab2()
