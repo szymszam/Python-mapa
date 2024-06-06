@@ -1,4 +1,4 @@
-from PyQt6.QtWidgets import QTabWidget, QPushButton, QVBoxLayout, QWidget, QMainWindow
+from PyQt6.QtWidgets import QTabWidget, QPushButton, QVBoxLayout, QWidget, QMainWindow, QGridLayout
 from Dane_IO import Fabryka_wejscia
 from Buttons_porownywarka import Buttons_lista_panstw, Searchbar
 from STALE import plik_z_danymi, DANE
@@ -8,7 +8,7 @@ from PanstwaM import Lista_panstw_z_filtowaniem
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.setGeometry(350, 100, 1300, 900)
+        self.setGeometry(350, 100, 1500, 1100)
         self.setWindowTitle('Los Elektrikos')
 
         self.__init_view()
@@ -28,7 +28,7 @@ class MainWindow(QMainWindow):
 
 
 class Buttons_trybow_panel(QTabWidget):
-    #Gdy powstaje obiekt to powstaje tylko jedna zakładka automatycznie reszte trzeba metodami
+    # Gdy powstaje obiekt to powstaje tylko jedna zakładka automatycznie reszte trzeba metodami
     def __init__(self, main_window):
         super().__init__()
         self.main_window = main_window
@@ -48,27 +48,27 @@ class Buttons_trybow_panel(QTabWidget):
     def stworz_tab2(self):
         # Tworzenie widgetu dla drugiej zakładki
         self.tab2 = QWidget()
-        self.tab2_layout = QVBoxLayout()
+        self.tab2_layout = QGridLayout()
         self.tab2.setLayout(self.tab2_layout)
-        self.tab2_layout.addWidget(Searchbar())
+        self.tab2_layout.addWidget(Searchbar(), 0, 1)
 
         self.addTab(self.tab2, "Porownywarka")
 
-    #czysci zawartość 2 tablicy (mocny prototyp)
+    # czysci zawartość 2 tablicy (mocny prototyp)
     def wyczysc_tab2(self):
         for i in reversed(range(self.tab2_layout.count())):
             widget_to_remove = self.tab2_layout.itemAt(i).widget()
-            if widget_to_remove:
+            if isinstance(widget_to_remove, Buttons_lista_panstw):
                 widget_to_remove.setParent(None)
 
-    #zapełnia tab 2 searchbarem guzikiem i gizikami panstw
+    # zapełnia tab 2 searchbarem guzikiem i gizikami panstw
     def zapelnij_tab2(self):
-        self.tab2_layout.addWidget(Buttons_lista_panstw())
+        self.tab2_layout.addWidget(Buttons_lista_panstw(), 1, 1)
 
     def stworz_tab3(self):
         # Tworzenie widgetu dla trzeciej zakładki
         self.tab3 = QWidget()
-        self.tab3_layout = QVBoxLayout()
+        self.tab3_layout = QGridLayout()
         self.tab3.setLayout(self.tab3_layout)
 
         self.addTab(self.tab3, "Mapa")
