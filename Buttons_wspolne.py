@@ -1,9 +1,10 @@
-from PyQt6.QtWidgets import QTabWidget, QPushButton, QVBoxLayout, QWidget, QMainWindow, QGridLayout
+from PyQt6.QtWidgets import QTabWidget, QPushButton, QVBoxLayout, QWidget, QMainWindow, QGridLayout, QFileDialog
 from Dane_IO import Fabryka_wejscia
 from Buttons_porownywarka import Buttons_lista_panstw, Searchbar
 from STALE import plik_z_danymi, DANE
 from PanstwaM import Lista_panstw_z_filtowaniem
 from Widok_porownywarka import Wykres
+
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -28,54 +29,68 @@ class MainWindow(QMainWindow):
 
 
 class Buttons_trybow_panel(QTabWidget):
-    # Gdy powstaje obiekt to powstaje tylko jedna zakładka automatycznie reszte trzeba metodami
     def __init__(self, main_window):
         super().__init__()
         self.main_window = main_window
-        self.stworz_tab1()
 
-    def stworz_tab1(self):
-        # Tworzenie widgetu dla pierwszej zakładki
-        self.tab1 = QWidget()
-        self.tab1_layout = QVBoxLayout()
-        self.tab1.setLayout(self.tab1_layout)
-
-        self.tab1_layout.addWidget(Button_Wczytywanie(self))
-
+        # Tworzenie i dodawanie zakładek
+        self.tab1 = Tab1(self)
         self.addTab(self.tab1, "Wczytywanie")
 
     def stworz_tab2(self):
-        # Tworzenie widgetu dla drugiej zakładki
-        self.tab2 = QWidget()
-        self.tab2_layout = QGridLayout()
-        self.tab2.setLayout(self.tab2_layout)
+        self.tab2 = Tab2(self)
+        self.addTab(self.tab2, "Porownywarka")
+
+    def stworz_tab3(self):
+        self.tab3 = Tab3(self)
+        self.addTab(self.tab3, "Mapa")
+
+    def wyczysc_tab2(self):
+        self.tab2.wyczysc_tab2()
+
+    def zapelnij_bts_panstwa_tab2(self):
+        self.tab2.zapelnij_bts_panstwa_tab2()
+
+
+class Tab1(QWidget):
+    def __init__(self, parent):
+        super().__init__(parent)
+        self.layout = QVBoxLayout(self)
+        self.setLayout(self.layout)
+
+        self.layout.addWidget(Button_Wczytywanie(parent))
+
+
+class Tab2(QWidget):
+    def __init__(self, parent):
+        super().__init__(parent)
+        self.layout = QGridLayout(self)
+        self.setLayout(self.layout)
 
         self.__Searchbar = Searchbar(self)
         self.__Wykres = Wykres()
 
-        self.tab2_layout.addWidget(self.__Searchbar, 0, 1)
-        self.tab2_layout.addWidget(self.__Wykres, 1, 0)
+        self.layout.addWidget(self.__Searchbar, 0, 1)
+        self.layout.addWidget(self.__Wykres, 1, 0)
 
-        self.addTab(self.tab2, "Porownywarka")
-
-    # czysci przyciski panstw z tab2
     def wyczysc_tab2(self):
-        for i in reversed(range(self.tab2_layout.count())):
-            widget_to_remove = self.tab2_layout.itemAt(i).widget()
+        for i in reversed(range(self.layout.count())):
+            widget_to_remove = self.layout.itemAt(i).widget()
             if isinstance(widget_to_remove, Buttons_lista_panstw):
                 widget_to_remove.setParent(None)
 
-    # zapełnia tab 2 searchbarem guzikiem i gizikami panstw
-    def zapelnij_tab2(self):
-        self.tab2_layout.addWidget(Buttons_lista_panstw(self.__Wykres), 1, 1)
+    def zapelnij_bts_panstwa_tab2(self):
+        self.layout.addWidget(Buttons_lista_panstw(self.__Wykres), 1, 1)
 
-    def stworz_tab3(self):
-        # Tworzenie widgetu dla trzeciej zakładki
-        self.tab3 = QWidget()
-        self.tab3_layout = QGridLayout()
-        self.tab3.setLayout(self.tab3_layout)
 
-        self.addTab(self.tab3, "Mapa")
+class Tab3(QWidget):
+    def __init__(self, parent):
+        super().__init__(parent)
+        self.layout = QGridLayout(self)
+        self.setLayout(self.layout)
+
+        # Dodanie widgetów do layoutu, jeśli jakieś są potrzebne
+        # self.layout.addWidget(...)
 
 
 class Button_Wczytywanie(QPushButton):
@@ -100,4 +115,4 @@ class Button_Wczytywanie(QPushButton):
         # Tworzenie zakładek 2 i 3 i zapełnienie zakładki 2
         self.__glowny_panel.stworz_tab2()
         self.__glowny_panel.stworz_tab3()
-        self.__glowny_panel.zapelnij_tab2()
+        self.__glowny_panel.zapelnij_bts_panstwa_tab2()

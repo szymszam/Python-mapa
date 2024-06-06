@@ -89,5 +89,5 @@ class Searchbar(QWidget):
         temp.filtruj_liste(self.line_edit.text(), DANE.daj_orginalne().daj_panstwa())
         DANE.zamien_filtrowane(temp)
         self.__panel_glowny.wyczysc_tab2()
-        self.__panel_glowny.zapelnij_tab2()
+        self.__panel_glowny.zapelnij_bts_panstwa_tab2()
 
