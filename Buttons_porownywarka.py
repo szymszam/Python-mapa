@@ -50,9 +50,12 @@ class Buttons_lista_panstw(QWidget):
 
 #Wiget zawierający searchbar i przycisk do niego
 class Searchbar(QWidget):
-    def __init__(self, placeholder_text="Wpisz termin"):
+    def __init__(self, placeholder_text="Wpisz termin", parent=None):
         super().__init__()
         self.stworz_searchbar(placeholder_text)
+        self.__parent = parent
+        print(type(self.__parent))
+
 
     #tworzy searchbar i guzik
     def stworz_searchbar(self, placeholder_text):
@@ -72,7 +75,10 @@ class Searchbar(QWidget):
         temp = Lista_panstw_z_filtowaniem(temp)
         temp.filtruj_liste(self.line_edit.text(), DANE.daj_orginalne().daj_panstwa())
         DANE.zamien_filtrowane(temp)
+        self.__parent.wyczysc_tab2()
+        self.__parent.zapelnij_tab2()
 
-        for panstwo in DANE.daj_filtrowane().daj_panstwa():
-            print(panstwo.daj_nazwa())
-        print("--------------------------")
+        # for panstwo in DANE.daj_filtrowane().daj_panstwa():
+        #     print(panstwo.daj_nazwa())
+        # print("--------------------------")
+

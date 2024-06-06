@@ -50,7 +50,7 @@ class Buttons_trybow_panel(QTabWidget):
         self.tab2 = QWidget()
         self.tab2_layout = QGridLayout()
         self.tab2.setLayout(self.tab2_layout)
-        self.tab2_layout.addWidget(Searchbar(), 0, 1)
+        self.tab2_layout.addWidget(Searchbar(parent = self), 0, 1)
 
         self.addTab(self.tab2, "Porownywarka")
 
