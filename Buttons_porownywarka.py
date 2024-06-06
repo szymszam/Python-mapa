@@ -1,5 +1,5 @@
 from PyQt6.QtWidgets import QVBoxLayout, QPushButton, QWidget, QLineEdit
-from PyQt6.QtGui import QColor
+
 from PanstwaM import Panstwo, Lista_panstw, Lista_panstw_z_filtowaniem
 from STALE import DANE
 
@@ -10,6 +10,7 @@ class Button_panstwo(QPushButton):
         self.__panstwo_reprezentowane = panstwo_reprezentowane #Obiekt panstwa które reprezentuje
         self.clicked.connect(self.klik)
         self.click_state = False
+
 
     def klik(self):
         podglad = DANE.daj_zaznaczone().daj_panstwa()
@@ -29,6 +30,7 @@ class Button_panstwo(QPushButton):
 
         if self.click_state == True:
             self.setStyleSheet("background-color: lightblue; color: white;")
+
         else:
             self.setStyleSheet("")
 
@@ -50,6 +52,7 @@ class Buttons_lista_panstw(QWidget):
 
         layout = QVBoxLayout()
         for btn in przyciski:
+            btn.setFixedSize(100,18)
             layout.addWidget(btn)
 
         self.setLayout(layout)
@@ -70,6 +73,8 @@ class Searchbar(QWidget):
         self.save_button.clicked.connect(self.filtruj_searchbar)
 
         layout = QVBoxLayout()
+        self.save_button.setFixedSize(100,20)
+        self.line_edit.setFixedSize(100,20)
         layout.addWidget(self.line_edit)
         layout.addWidget(self.save_button)
         self.setLayout(layout)

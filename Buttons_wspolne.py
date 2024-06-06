@@ -1,4 +1,4 @@
-from PyQt6.QtWidgets import QTabWidget, QPushButton, QVBoxLayout, QWidget, QMainWindow, QGridLayout
+from PyQt6.QtWidgets import QTabWidget, QPushButton, QVBoxLayout, QWidget, QMainWindow, QGridLayout, QSpacerItem, QSizePolicy, QApplication, QLabel
 from Dane_IO import Fabryka_wejscia
 from Buttons_porownywarka import Buttons_lista_panstw, Searchbar
 from STALE import plik_z_danymi, DANE
@@ -8,7 +8,7 @@ from Widok_porownywarka import ChartWidget
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.setGeometry(350, 100, 1500, 1100)
+        self.setGeometry(100, 50, 1800, 1500)
         self.setWindowTitle('Los Elektrikos')
 
         self.__init_view()
@@ -51,9 +51,12 @@ class Buttons_trybow_panel(QTabWidget):
         self.tab2_layout = QGridLayout()
         self.tab2.setLayout(self.tab2_layout)
         self.tab2_layout.addWidget(Searchbar(parent = self), 0, 1)
-        self.tab2_layout.addWidget(ChartWidget(parent = self), 1, 0)
+        self.tab2_layout.addWidget(ChartWidget(parent = self), 0, 0, 0, 1)
+
+
 
         self.addTab(self.tab2, "Porownywarka")
+
 
     # czysci zawartość 2 tablicy (mocny prototyp)
     def wyczysc_tab2(self):
