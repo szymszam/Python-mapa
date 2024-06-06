@@ -1,5 +1,5 @@
 from PyQt6.QtWidgets import QVBoxLayout, QPushButton, QWidget, QLineEdit
-from Dane_IO import Fabryka_wejscia, Wejscie_xlsx
+from PyQt6.QtGui import QColor
 from PanstwaM import Panstwo, Lista_panstw, Lista_panstw_z_filtowaniem
 from STALE import DANE
 
@@ -9,22 +9,28 @@ class Button_panstwo(QPushButton):
         super().__init__(panstwo_reprezentowane.daj_nazwa())
         self.__panstwo_reprezentowane = panstwo_reprezentowane #Obiekt panstwa które reprezentuje
         self.clicked.connect(self.klik)
+        self.click_state = False
 
     def klik(self):
         podglad = DANE.daj_zaznaczone().daj_panstwa()
+        self.click_state = not self.click_state
 
         if self.__panstwo_reprezentowane not in podglad:
-            podglad.append(self.__panstwo_reprezentowane)
-            DANE.zamien_zaznaczone(Lista_panstw(podglad))
+             podglad.append(self.__panstwo_reprezentowane)
+             DANE.zamien_zaznaczone(Lista_panstw(podglad))
 
         elif self.__panstwo_reprezentowane in podglad:
-            podglad.remove(self.__panstwo_reprezentowane)
-            DANE.zamien_zaznaczone(Lista_panstw(podglad))
+              podglad.remove(self.__panstwo_reprezentowane)
+              DANE.zamien_zaznaczone(Lista_panstw(podglad))
 
         for panstwo in DANE.daj_zaznaczone().daj_panstwa():
-            print(panstwo)
+               print(panstwo)
         print("----------------------")
 
+        if self.click_state == True:
+            self.setStyleSheet("background-color: lightblue; color: white;")
+        else:
+            self.setStyleSheet("")
 
 
 
