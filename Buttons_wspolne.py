@@ -100,19 +100,23 @@ class Button_Wczytywanie(QPushButton):
         self.clicked.connect(self.klik)
 
     def klik(self):
-        # Wczytywanie danych do DANE
-        czytajnik = Fabryka_wejscia()
-        czytajnik = czytajnik.daj_wejscie(plik_z_danymi)
-        dane_zczytane = czytajnik.czytaj()
-        DANE.zamien_orginalne(dane_zczytane)
-        dane_zczytane = dane_zczytane.daj_panstwa()
-        DANE.zamien_filtrowane(Lista_panstw_z_filtowaniem(dane_zczytane))
+        # Wybór pliku za pomocą dialogu
+        plik, _ = QFileDialog.getOpenFileName(self, "Wybierz plik", "", "Wszystkie pliki (*)")
 
-        # Usunięcie zakładki tab1 po wczytaniu danych
-        index = self.__glowny_panel.indexOf(self.__glowny_panel.tab1)
-        self.__glowny_panel.removeTab(index)
+        if plik:
+            # Wczytywanie danych do DANE
+            czytajnik = Fabryka_wejscia()
+            czytajnik = czytajnik.daj_wejscie(plik)
+            dane_zczytane = czytajnik.czytaj()
+            DANE.zamien_orginalne(dane_zczytane)
+            dane_zczytane = dane_zczytane.daj_panstwa()
+            DANE.zamien_filtrowane(Lista_panstw_z_filtowaniem(dane_zczytane))
 
-        # Tworzenie zakładek 2 i 3 i zapełnienie zakładki 2
-        self.__glowny_panel.stworz_tab2()
-        self.__glowny_panel.stworz_tab3()
-        self.__glowny_panel.zapelnij_bts_panstwa_tab2()
+            # Usunięcie zakładki tab1 po wczytaniu danych
+            index = self.__glowny_panel.indexOf(self.__glowny_panel.tab1)
+            self.__glowny_panel.removeTab(index)
+
+            # Tworzenie zakładek 2 i 3 i zapełnienie zakładki 2
+            self.__glowny_panel.stworz_tab2()
+            self.__glowny_panel.stworz_tab3()
+            self.__glowny_panel.zapelnij_bts_panstwa_tab2()
