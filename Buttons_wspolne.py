@@ -1,3 +1,4 @@
+from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import QTabWidget, QPushButton, QVBoxLayout, QWidget, QMainWindow, QGridLayout, QFileDialog
 from Dane_IO import Fabryka_wejscia_wykresy
 from Buttons_porownywarka import Buttons_lista_panstw, Searchbar, Przycisk_zapisu
@@ -62,7 +63,8 @@ class Tab1(QWidget):
         self.layout = QVBoxLayout(self)
         self.setLayout(self.layout)
 
-        self.layout.addWidget(Button_Wczytywanie(parent, DANE_1))
+        button = Button_Wczytywanie(parent, DANE_1)
+        self.layout.addWidget(button, alignment=Qt.AlignmentFlag.AlignCenter)
 
 
 
@@ -107,6 +109,8 @@ class Button_Wczytywanie(QPushButton):
         self.__glowny_panel = glowny_panel
         self.__DANE_1 = DANE_1
         self.clicked.connect(self.klik)
+        self.setFixedSize(400, 100)
+        self.setStyleSheet("font-size: 24px; font-family: Arial")
 
     def klik(self):
         # Wybór pliku za pomocą dialogu
