@@ -21,7 +21,7 @@ class Button_panstwo(QPushButton):
     def klik(self):
         podglad = self.__DANE_1.daj_zaznaczone().daj_panstwa()
 
-        if self.__panstwo_reprezentowane not in podglad and len(podglad) < 4:
+        if self.__panstwo_reprezentowane not in podglad and len(podglad) < 3:
              podglad.append(self.__panstwo_reprezentowane)
              self.__DANE_1.zamien_zaznaczone(Lista_panstw(podglad))
              self.click_state = not self.click_state

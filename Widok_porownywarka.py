@@ -37,14 +37,14 @@ class Wykres(QWidget):
         # Dodaj przykładowe dane do wykresu
         self.zaladuj_wykres()
 
+#Aktualizacja wykresu - wykorzusyje dane zawarte w DANE_1 a dokładniej panstwa zazanaczone oraz lata
     def zaladuj_wykres(self):
         self.__Panstwa = []
         for panstwo in self.__DANE_1.daj_zaznaczone().daj_panstwa():
             nazwa = panstwo.daj_nazwa()
             ilosci = panstwo.daj_ilosc()
-            dlugosc = len(ilosci)  # Pobranie długości listy ilości aut
-            categories = [x + 2013 for x in range(dlugosc)]
-            self.__Panstwa.append([nazwa, ilosci, categories])
+            categories = [x + 2013 for x in range(len(ilosci) )]
+            self.__Panstwa.append([nazwa, ilosci[self.__DANE_1.daj_pier_rok():self.__DANE_1.daj_ost_rok()], categories[self.__DANE_1.daj_pier_rok():self.__DANE_1.daj_ost_rok()]])
 
         # Usuń poprzednie dane
         self.ax.clear()

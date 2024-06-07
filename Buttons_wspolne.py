@@ -1,5 +1,5 @@
 from PyQt6.QtWidgets import QTabWidget, QPushButton, QVBoxLayout, QWidget, QMainWindow, QGridLayout, QFileDialog
-from Dane_IO import Fabryka_wejscia
+from Dane_IO import Fabryka_wejscia_wykresy
 from Buttons_porownywarka import Buttons_lista_panstw, Searchbar
 from PanstwaM import Lista_panstw_z_filtowaniem
 from Widok_porownywarka import Wykres
@@ -111,7 +111,7 @@ class Button_Wczytywanie(QPushButton):
 
         if plik:
             # Wczytywanie danych do DANE
-            czytajnik = Fabryka_wejscia()
+            czytajnik = Fabryka_wejscia_wykresy()
             czytajnik = czytajnik.daj_wejscie(plik)
             dane_zczytane = czytajnik.czytaj()
             self.__DANE_1.zamien_orginalne(dane_zczytane)
