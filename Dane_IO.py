@@ -53,6 +53,7 @@ class Dane_porownywarka:
         self.__panstwa_zaznaczone = Lista_panstw()
         self.__panstwa_filtrowane = Lista_panstw_z_filtowaniem()
 
+
     def daj_orginalne(self):
         return self.__panstwa_orginalne
 

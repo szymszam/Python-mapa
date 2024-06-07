@@ -60,6 +60,9 @@ class Wykres(QWidget):
         for i, (label, (values, categories)) in enumerate(self.__Panstwa.items()):
             self.ax.bar([x + bar_offsets[i] for x in categories], values, label=label, width=bar_width)
 
+        # Ustaw tytuł wykresu
+        self.ax.set_title("Liczba zarejestacji pojazdów elektrycznych")
+
         # Ustaw legendę
         self.ax.legend()
 
