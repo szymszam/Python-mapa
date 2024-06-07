@@ -14,7 +14,7 @@ class Ladowarka:
         return self.__x == other.__x and self.__y == other.__y
 
 
-class lista_ladowarek:
+class Lista_ladowarek:
     def __init__(self, ladowarki):
         self.__ladowarki = ladowarki
 

@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 import pandas as pd
 from PanstwaM import Panstwo, Lista_panstw, Lista_panstw_z_filtowaniem
+from LadowarkiM import Lista_ladowarek, Ladowarka
 
 
 class Fabryka_wejscia_wykresy():  # wybiera i tworzy odpowiednie wejscie zczytujace
@@ -8,6 +9,14 @@ class Fabryka_wejscia_wykresy():  # wybiera i tworzy odpowiednie wejscie zczytuj
         rozszerzenie = sciezka.split(".")[-1]
         if rozszerzenie == "xlsx":
             return Wejscie_xlsx_wykresy(sciezka)
+        else:
+            raise ValueError("Nieobslugiwany typ pliku")
+
+class Fabryka_wejscia_mapa():
+    def daj_wejscie(self, sciezka):
+        rozszerzenie = sciezka.split(".")[-1]
+        if rozszerzenie == "txt":
+            return Wejscie_txt_mapa(sciezka)
         else:
             raise ValueError("Nieobslugiwany typ pliku")
 
@@ -53,12 +62,18 @@ class Wejscie_xlsx_wykresy(Wejscie):  # dajemy scierzke zwraca nam obiekt klasy 
 
 class Wejscie_txt_mapa(Wejscie):
     def __init__(self, sciezka):
-        self.sciezka = sciezka
+        self.__sciezka = sciezka
 
     def czytaj(self):
-        with open(self.sciezka, "r") as f:
+        lista_ladowarek = []
+        with open(self.__sciezka,"r", encoding="utf-8") as f:
             for line in f:
-                zawartosc = line.strip()
+                czesci = line.strip().split(" ")
+                x = czesci[0]
+                y = czesci[1]
+                nazwa = " ".join(czesci[2:])
+                lista_ladowarek.append(Ladowarka(x,y,nazwa))
+        return Lista_ladowarek(lista_ladowarek)
 
 
 class Dane_porownywarka:
