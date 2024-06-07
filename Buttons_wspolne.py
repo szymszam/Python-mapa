@@ -29,7 +29,6 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(main_widget)
 
 
-
 class Buttons_trybow_panel(QTabWidget):
     def __init__(self, main_window, DANE_1):
         super().__init__()
@@ -89,16 +88,16 @@ class Tab2(QWidget):
         self.__Resta_przyciskow.setFixedSize(400, 50)
 
     def wyczysc_tab2(self):
-        for i in reversed(range(self.layout.count())):
-            widget_to_remove = self.layout.itemAt(i).widget()
-            if isinstance(widget_to_remove, Buttons_lista_panstw):
-                widget_to_remove.setParent(None)
+        self.__Przyciski_panstw.setVisible(False)
+
+
 
     def zapelnij_bts_panstwa_tab2(self):
-        self.__Przyciski_panstw = Buttons_lista_panstw(self.__Wykres, self.__DANE_1)
-        self.__Przyciski_panstw.setParent(self)
-        self.__Przyciski_panstw.move(1300, 100)
-        self.__Przyciski_panstw.setFixedSize(400, 800)
+         self.__Przyciski_panstw = Buttons_lista_panstw(self.__Wykres, self.__DANE_1)
+         self.__Przyciski_panstw.setParent(self)
+         self.__Przyciski_panstw.move(1300, 100)
+         self.__Przyciski_panstw.setFixedSize(400, 800)
+         self.__Przyciski_panstw.setVisible(True)
 
 
 class Tab3(QWidget):
