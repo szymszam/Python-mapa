@@ -5,7 +5,7 @@ class Ladowarka:
         self.__nazwa = nazwa
 
     def daj_lokacje(self):
-        return (self.__x, self.__y)
+        return self.__x, self.__y
 
     def daj_nazwa(self):
         return self.__nazwa
