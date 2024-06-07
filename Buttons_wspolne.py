@@ -1,4 +1,5 @@
 from PyQt6.QtWidgets import QTabWidget, QPushButton, QVBoxLayout, QWidget, QMainWindow, QGridLayout, QFileDialog
+from PyQt6.QtGui import QFont
 from Dane_IO import Fabryka_wejscia_wykresy
 from Buttons_porownywarka import Buttons_lista_panstw, Searchbar, Przycisk_zapisu
 from PanstwaM import Lista_panstw_z_filtowaniem
@@ -62,7 +63,10 @@ class Tab1(QWidget):
         self.layout = QVBoxLayout(self)
         self.setLayout(self.layout)
 
-        self.layout.addWidget(Button_Wczytywanie(parent, DANE_1))
+        button = Button_Wczytywanie(parent, DANE_1)
+        self.layout.removeWidget(button)
+        button.setParent(self)
+        button.move(750, 360)
 
 
 
@@ -106,6 +110,11 @@ class Button_Wczytywanie(QPushButton):
         super().__init__("Wczytywanie")
         self.__glowny_panel = glowny_panel
         self.__DANE_1 = DANE_1
+
+        self.setFixedSize(400, 120)
+        font = QFont("Arial", 26)
+        self.setFont(font)
+
         self.clicked.connect(self.klik)
 
     def klik(self):
