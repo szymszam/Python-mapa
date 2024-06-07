@@ -82,21 +82,21 @@ class Tab2(QWidget):
         self.__DANE_1 = DANE_1
 
         self.__Wykres = Wykres(self.__DANE_1)
-        self.__Resta_przyciskow = Szukaj_i_zapisz(self, self.__DANE_1, self.__Wykres)
-        self.__Suwaki = Suwaki_lat()
+        self.__Reszta_przyciskow = Szukaj_i_zapisz(self, self.__DANE_1, self.__Wykres)
+        self.__Suwaki = Suwaki_lat(self.__DANE_1, self.__Wykres)
 
         self.__Wykres.setParent(self)
-        self.__Resta_przyciskow.setParent(self)
+        self.__Reszta_przyciskow.setParent(self)
         self.__Suwaki.setParent(self)
 
         self.__Wykres.move(0, 0)
         self.__Wykres.setFixedSize(1300, 900)
 
-        self.__Resta_przyciskow.move(1300, 50)
-        self.__Resta_przyciskow.setFixedSize(400, 50)
+        self.__Reszta_przyciskow.move(1300, 50)
+        self.__Reszta_przyciskow.setFixedSize(400, 50)
 
         self.__Suwaki.move(200,900)
-        self.__Suwaki.setFixedSize(400, 50)
+        self.__Suwaki.setFixedSize(700, 150)
 
 
     def wyczysc_tab2(self):
@@ -159,3 +159,5 @@ class Button_Wczytywanie(QPushButton):
             self.__glowny_panel.stworz_tab2()
             self.__glowny_panel.stworz_tab3()
             self.__glowny_panel.zapelnij_bts_panstwa_tab2()
+
+            self.__DANE_1.zmien_ost_rok(len(self.__DANE_1.daj_orginalne().daj_panstwa()[0].daj_ilosc()))

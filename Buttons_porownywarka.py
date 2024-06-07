@@ -4,6 +4,7 @@ from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import QVBoxLayout, QPushButton, QWidget, QLineEdit, QGridLayout, QHBoxLayout, QSlider
 from PanstwaM import Lista_panstw, Lista_panstw_z_filtowaniem
 
+
 # Przycisk reprezentujący pojedyncze państwo
 class Button_panstwo(QPushButton):
     def __init__(self, panstwo_reprezentowane, referencja_do_wykresu, DANE_1):
@@ -24,14 +25,14 @@ class Button_panstwo(QPushButton):
         podglad = self.__DANE_1.daj_zaznaczone().daj_panstwa()
 
         if self.__panstwo_reprezentowane not in podglad and len(podglad) < 3:
-             podglad.append(self.__panstwo_reprezentowane)
-             self.__DANE_1.zamien_zaznaczone(Lista_panstw(podglad))
-             self.click_state = not self.click_state
+            podglad.append(self.__panstwo_reprezentowane)
+            self.__DANE_1.zamien_zaznaczone(Lista_panstw(podglad))
+            self.click_state = not self.click_state
 
         elif self.__panstwo_reprezentowane in podglad:
-              podglad.remove(self.__panstwo_reprezentowane)
-              self.__DANE_1.zamien_zaznaczone(Lista_panstw(podglad))
-              self.click_state = not self.click_state
+            podglad.remove(self.__panstwo_reprezentowane)
+            self.__DANE_1.zamien_zaznaczone(Lista_panstw(podglad))
+            self.click_state = not self.click_state
 
         if self.click_state == True:
             self.setStyleSheet("background-color: lightblue; color: white;")
@@ -49,7 +50,6 @@ class Buttons_lista_panstw(QWidget):
         self.__wykres = odwolanie_do_wykresu
         self.__DANE_1 = DANE_1
         self.stworz_przyciski()
-
 
     def stworz_przyciski(self):
         dane = self.__DANE_1.daj_filtrowane().daj_panstwa()
@@ -69,6 +69,7 @@ class Buttons_lista_panstw(QWidget):
                 row += 1
 
         self.setLayout(layout)
+
 
 class Szukaj_i_zapisz(QWidget):
     def __init__(self, panel_glowny=None, DANE_1=None, Wykres=None):
@@ -116,24 +117,28 @@ class Przycisk_zapisu(QPushButton):
     def __zapisz(self):
         self.__wykres.zapisz_wykres_jako_pdf()
 
+
 class Suwaki_lat(QWidget):
-    def __init__(self):
+    def __init__(self, DANE_1, Wykres):
         super().__init__()
+        self.__DANE_1 = DANE_1
+        self.__wykres = Wykres
         self.stworz_suwaki()
+
     def stworz_suwaki(self):
         self.min_slider = QSlider(Qt.Orientation.Horizontal, self)
         self.min_slider.setMinimum(0)
-        self.min_slider.setMaximum(12)
+        self.min_slider.setMaximum(len(self.__DANE_1.daj_orginalne().daj_panstwa()[0].daj_ilosc()))
         self.min_slider.setTickPosition(QSlider.TickPosition.TicksBelow)
-        self.min_slider.setTickInterval(12)
+        self.min_slider.setTickInterval(len(self.__DANE_1.daj_orginalne().daj_panstwa()[0].daj_ilosc()))
         self.min_slider.valueChanged.connect(self.updateMinValue)
 
         self.max_slider = QSlider(Qt.Orientation.Horizontal, self)
         self.max_slider.setMinimum(0)
-        self.max_slider.setMaximum(12)
-        self.max_slider.setValue(12)
+        self.max_slider.setMaximum(len(self.__DANE_1.daj_orginalne().daj_panstwa()[0].daj_ilosc()))
+        self.max_slider.setValue(len(self.__DANE_1.daj_orginalne().daj_panstwa()[0].daj_ilosc()))
         self.max_slider.setTickPosition(QSlider.TickPosition.TicksBelow)
-        self.max_slider.setTickInterval(12)
+        self.max_slider.setTickInterval(len(self.__DANE_1.daj_orginalne().daj_panstwa()[0].daj_ilosc()))
         self.max_slider.valueChanged.connect(self.updateMaxValue)
 
         layout = QVBoxLayout()
@@ -146,14 +151,12 @@ class Suwaki_lat(QWidget):
         max_war = self.max_slider.value()
         if wartosc > max_war:
             self.min_slider.setValue(max_war)
-        # else:
-        #     self.min_label.setText(f'Minimalna wartość: {value}')
+        self.__DANE_1.zmien_pier_rok(wartosc)
+        self.__wykres.zaladuj_wykres()
 
     def updateMaxValue(self, wartosc):
         min_war = self.min_slider.value()
         if wartosc < min_war:
             self.max_slider.setValue(min_war)
-        # else:
-        #     self.max_label.setText(f'Maksymalna wartość: {value}')
-
-
+        self.__DANE_1.zmien_ost_rok(wartosc)
+        self.__wykres.zaladuj_wykres()

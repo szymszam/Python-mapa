@@ -2,7 +2,8 @@ from abc import ABC, abstractmethod
 import pandas as pd
 from PanstwaM import Panstwo, Lista_panstw, Lista_panstw_z_filtowaniem
 
-class Fabryka_wejscia_wykresy(): #wybiera i tworzy odpowiednie wejscie zczytujace
+
+class Fabryka_wejscia_wykresy():  # wybiera i tworzy odpowiednie wejscie zczytujace
     def daj_wejscie(self, sciezka):
         rozszerzenie = sciezka.split(".")[-1]
         if rozszerzenie == "xlsx":
@@ -10,12 +11,14 @@ class Fabryka_wejscia_wykresy(): #wybiera i tworzy odpowiednie wejscie zczytujac
         else:
             raise ValueError("Nieobslugiwany typ pliku")
 
-class Wejscie(ABC): #interface
+
+class Wejscie(ABC):  # interface
     @abstractmethod
     def czytaj(self):
         pass
 
-class Wejscie_xlsx_wykresy(Wejscie): #dajemy scierzke zwraca nam obiekt klasy Lista_panstw
+
+class Wejscie_xlsx_wykresy(Wejscie):  # dajemy scierzke zwraca nam obiekt klasy Lista_panstw
     def __init__(self, sciezka):
         self.sciezka = sciezka
 
@@ -47,6 +50,7 @@ class Wejscie_xlsx_wykresy(Wejscie): #dajemy scierzke zwraca nam obiekt klasy Li
             lista_obiektow_panstwo.append(temp)
         return Lista_panstw(lista_obiektow_panstwo)
 
+
 class Wejscie_txt_mapa(Wejscie):
     def __init__(self, sciezka):
         self.sciezka = sciezka
@@ -56,14 +60,14 @@ class Wejscie_txt_mapa(Wejscie):
             for line in f:
                 zawartosc = line.strip()
 
+
 class Dane_porownywarka:
     def __init__(self):
         self.__panstwa_orginalne = Lista_panstw()
         self.__panstwa_zaznaczone = Lista_panstw()
         self.__panstwa_filtrowane = Lista_panstw_z_filtowaniem()
-        self.__pier_rok_wyk = 6
-        self.__ost_rok_wyk = 10
-
+        self.__pier_rok_wyk = 0
+        self.__ost_rok_wyk = 0
 
     def daj_orginalne(self):
         return self.__panstwa_orginalne
@@ -71,22 +75,17 @@ class Dane_porownywarka:
     def zamien_orginalne(self, nowa_lista):
         self.__panstwa_orginalne = nowa_lista
 
-
     def daj_zaznaczone(self):
         return self.__panstwa_zaznaczone
 
     def zamien_zaznaczone(self, nowa_lista):
         self.__panstwa_zaznaczone = nowa_lista
 
-
     def daj_filtrowane(self):
         return self.__panstwa_filtrowane
 
     def zamien_filtrowane(self, nowa_lista):
         self.__panstwa_filtrowane = nowa_lista
-
-
-
 
     def daj_pier_rok(self):
         return self.__pier_rok_wyk
@@ -99,4 +98,3 @@ class Dane_porownywarka:
 
     def zmien_ost_rok(self, nowy_rok):
         self.__ost_rok_wyk = nowy_rok
-
