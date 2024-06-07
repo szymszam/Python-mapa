@@ -64,7 +64,6 @@ class Tab1(QWidget):
         self.setLayout(self.layout)
 
         button = Button_Wczytywanie(parent, DANE_1)
-        self.layout.removeWidget(button)
         button.setParent(self)
         button.move(750, 360)
 
