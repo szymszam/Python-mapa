@@ -1,8 +1,7 @@
-from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import QTabWidget, QPushButton, QVBoxLayout, QWidget, QMainWindow, QGridLayout, QFileDialog
 from PyQt6.QtGui import QFont
 from Dane_IO import Fabryka_wejscia_wykresy
-from Buttons_porownywarka import Buttons_lista_panstw, Szukaj_i_zapisz, Przycisk_zapisu
+from Buttons_porownywarka import Buttons_lista_panstw, Szukaj_i_zapisz
 from PanstwaM import Lista_panstw_z_filtowaniem
 from Wykres_porownywarka import Wykres
 
