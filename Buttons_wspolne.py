@@ -1,7 +1,8 @@
+from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import QTabWidget, QPushButton, QVBoxLayout, QWidget, QMainWindow, QGridLayout, QFileDialog
 from PyQt6.QtGui import QFont
 from Dane_IO import Fabryka_wejscia_wykresy
-from Buttons_porownywarka import Buttons_lista_panstw, Searchbar, Przycisk_zapisu
+from Buttons_porownywarka import Buttons_lista_panstw, Szukaj_i_zapisz, Przycisk_zapisu
 from PanstwaM import Lista_panstw_z_filtowaniem
 from Wykres_porownywarka import Wykres
 
@@ -10,11 +11,10 @@ class MainWindow(QMainWindow):
     def __init__(self, DANE_1):
         super().__init__()
         self.__DANE_1 = DANE_1
-        self.setGeometry(350, 100, 1500, 1100)
         self.setWindowTitle('Los Elektrikos')
 
         self.__init_view()
-        self.showMaximized()  # Maksymalizuj okno po jego utworzeniu
+        self.showFullScreen()  # Maksymalizuj okno po jego utworzeniu
 
     def __init_view(self):
         self.buttons_trybow_panel = Buttons_trybow_panel(self, self.__DANE_1)
@@ -76,13 +76,17 @@ class Tab2(QWidget):
         self.setLayout(self.layout)
         self.__DANE_1 = DANE_1
 
-        self.__Searchbar = Searchbar(self, self.__DANE_1)
         self.__Wykres = Wykres(self.__DANE_1)
-        self.__Przycisk_zapisu = Przycisk_zapisu(self.__Wykres)
+        self.__Resta_przyciskow = Szukaj_i_zapisz(self, self.__DANE_1, self.__Wykres)
 
-        self.layout.addWidget(self.__Searchbar)
-        self.layout.addWidget(self.__Wykres)
-        self.layout.addWidget(self.__Przycisk_zapisu)
+        self.__Wykres.setParent(self)
+        self.__Resta_przyciskow.setParent(self)
+
+        self.__Wykres.move(0, 0)
+        self.__Wykres.setFixedSize(1300, 900)
+
+        self.__Resta_przyciskow.move(1300, 50)
+        self.__Resta_przyciskow.setFixedSize(400, 50)
 
     def wyczysc_tab2(self):
         for i in reversed(range(self.layout.count())):
@@ -91,7 +95,10 @@ class Tab2(QWidget):
                 widget_to_remove.setParent(None)
 
     def zapelnij_bts_panstwa_tab2(self):
-        self.layout.addWidget(Buttons_lista_panstw(self.__Wykres, self.__DANE_1))
+        self.__Przyciski_panstw = Buttons_lista_panstw(self.__Wykres, self.__DANE_1)
+        self.__Przyciski_panstw.setParent(self)
+        self.__Przyciski_panstw.move(1300, 100)
+        self.__Przyciski_panstw.setFixedSize(400, 800)
 
 
 class Tab3(QWidget):
@@ -115,6 +122,8 @@ class Button_Wczytywanie(QPushButton):
         self.setFont(font)
 
         self.clicked.connect(self.klik)
+        self.setFixedSize(400, 100)
+        self.setStyleSheet("font-size: 24px; font-family: Arial")
 
     def klik(self):
         # Wybór pliku za pomocą dialogu

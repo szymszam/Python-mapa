@@ -9,7 +9,7 @@ class Button_panstwo(QPushButton):
         self.__wykres = referencja_do_wykresu
         self.__panstwo_reprezentowane = panstwo_reprezentowane
         self.__DANE_1 = DANE_1
-
+        self.setFixedSize(400, 900)
         self.clicked.connect(self.klik)
 
         if self.__panstwo_reprezentowane in self.__DANE_1.daj_zaznaczone().daj_panstwa():
@@ -68,25 +68,32 @@ class Buttons_lista_panstw(QWidget):
 
         self.setLayout(layout)
 
-
-# Widget zawierający searchbar i przycisk do niego
-class Searchbar(QWidget):
-    def __init__(self, panel_glowny=None, DANE_1=None):
+class Szukaj_i_zapisz(QWidget):
+    def __init__(self, panel_glowny=None, DANE_1=None, Wykres=None):
         super().__init__()
         self.__panel_glowny = panel_glowny
         self.__DANE_1 = DANE_1
-        self.stworz_searchbar("Wpisz termin")
+        self.__Wykres = Wykres
+        self.setFixedSize(400, 50)
 
-    def stworz_searchbar(self, placeholder_text):
+        self.stworz()
+
+    def stworz(self):
         self.line_edit = QLineEdit()
-        self.line_edit.setPlaceholderText(placeholder_text)
+        self.line_edit.setPlaceholderText("Wpisz termin")
+        self.line_edit.setFixedSize(130, 30)
 
-        self.save_button = QPushButton("Szukaj")
-        self.save_button.clicked.connect(self.filtruj_searchbar)
+        self.przycisk_szukaj = QPushButton("Szukaj")
+        self.przycisk_szukaj.clicked.connect(self.filtruj_searchbar)
+        self.przycisk_szukaj.setFixedSize(100, 30)
+
+        self.przycisk_zapisz = Przycisk_zapisu(self.__Wykres)
+        self.przycisk_zapisz.setFixedSize(70, 30)
 
         layout = QHBoxLayout()
         layout.addWidget(self.line_edit)
-        layout.addWidget(self.save_button)
+        layout.addWidget(self.przycisk_szukaj)
+        layout.addWidget(self.przycisk_zapisz)
         self.setLayout(layout)
 
     def filtruj_searchbar(self):
@@ -97,9 +104,14 @@ class Searchbar(QWidget):
         self.__panel_glowny.wyczysc_tab2()
         self.__panel_glowny.zapelnij_bts_panstwa_tab2()
 
+
 class Przycisk_zapisu(QPushButton):
     def __init__(self, wykres):
-        super().__init__("Zapisz jako PDF")
+        super().__init__("Zapisz")
         self.__wykres = wykres
-        self.setFixedSize(60, 20)
-        self.setStyleSheet("font-size: 10px; font-family")
+        self.clicked.connect(self.__zapisz)
+
+    def __zapisz(self):
+        self.__wykres.zapisz_wykres_jako_pdf()
+
+
