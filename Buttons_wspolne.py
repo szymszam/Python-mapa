@@ -95,7 +95,8 @@ class Tab2(QWidget):
         self.__Resta_przyciskow.move(1300, 50)
         self.__Resta_przyciskow.setFixedSize(400, 50)
 
-        self.__Suwaki.move(200,700)
+        self.__Suwaki.move(200,900)
+        self.__Suwaki.setFixedSize(400, 50)
 
 
     def wyczysc_tab2(self):
