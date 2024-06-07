@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg as FigureCanvas
-from PyQt6.QtWidgets import QWidget, QVBoxLayout
+from PyQt6.QtWidgets import QWidget, QVBoxLayout, QFileDialog
 import seaborn as sns
 
 class Wykres(QWidget):
@@ -88,3 +88,9 @@ class Wykres(QWidget):
 
         # Odśwież wykres
         self.canvas.draw()
+
+    def zapisz_wykres_jako_pdf(self):
+        nazwa_pliku, _ = QFileDialog.getSaveFileName(self, "Zapisz jako", "", "Pliki PDF (*.pdf)")
+
+        if nazwa_pliku:
+            self.figure.savefig(nazwa_pliku, format='pdf')

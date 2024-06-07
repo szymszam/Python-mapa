@@ -1,8 +1,8 @@
 from PyQt6.QtWidgets import QTabWidget, QPushButton, QVBoxLayout, QWidget, QMainWindow, QGridLayout, QFileDialog
 from Dane_IO import Fabryka_wejscia_wykresy
-from Buttons_porownywarka import Buttons_lista_panstw, Searchbar
+from Buttons_porownywarka import Buttons_lista_panstw, Searchbar, Przycisk_zapisu
 from PanstwaM import Lista_panstw_z_filtowaniem
-from Widok_porownywarka import Wykres
+from Wykres_porownywarka import Wykres
 
 
 class MainWindow(QMainWindow):
@@ -65,6 +65,7 @@ class Tab1(QWidget):
         self.layout.addWidget(Button_Wczytywanie(parent, DANE_1))
 
 
+
 class Tab2(QWidget):
     def __init__(self, parent, DANE_1):
         super().__init__(parent)
@@ -74,9 +75,11 @@ class Tab2(QWidget):
 
         self.__Searchbar = Searchbar(self, self.__DANE_1)
         self.__Wykres = Wykres(self.__DANE_1)
+        self.__Przycisk_zapisu = Przycisk_zapisu(self.__Wykres)
 
-        self.layout.addWidget(self.__Searchbar, 0, 0, 1, 1)
-        self.layout.addWidget(self.__Wykres, 0, 1, 2, 2)
+        self.layout.addWidget(self.__Searchbar)
+        self.layout.addWidget(self.__Wykres)
+        self.layout.addWidget(self.__Przycisk_zapisu)
 
     def wyczysc_tab2(self):
         for i in reversed(range(self.layout.count())):
@@ -85,7 +88,7 @@ class Tab2(QWidget):
                 widget_to_remove.setParent(None)
 
     def zapelnij_bts_panstwa_tab2(self):
-        self.layout.addWidget(Buttons_lista_panstw(self.__Wykres, self.__DANE_1), 1, 0, 1, 1)
+        self.layout.addWidget(Buttons_lista_panstw(self.__Wykres, self.__DANE_1))
 
 
 class Tab3(QWidget):

@@ -100,3 +100,13 @@ class Searchbar(QWidget):
         self.__DANE_1.zamien_filtrowane(temp)
         self.__panel_glowny.wyczysc_tab2()
         self.__panel_glowny.zapelnij_bts_panstwa_tab2()
+
+class Przycisk_zapisu(QPushButton):
+    def __init__(self, wykres):
+        super().__init__("Zapisz jako PDF")
+        self.__wykres = wykres
+        self.clicked.connect(self.__zapisz)
+
+    def __zapisz(self):
+        self.__wykres.zapisz_wykres_jako_pdf()
+
