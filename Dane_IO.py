@@ -52,6 +52,8 @@ class Dane_porownywarka:
         self.__panstwa_orginalne = Lista_panstw()
         self.__panstwa_zaznaczone = Lista_panstw()
         self.__panstwa_filtrowane = Lista_panstw_z_filtowaniem()
+        self.__pier_rok_wyk = 0
+        self.__ost_rok_wyk = 9
 
 
     def daj_orginalne(self):
@@ -71,4 +73,10 @@ class Dane_porownywarka:
 
     def zamien_filtrowane(self, nowa_lista):
         self.__panstwa_filtrowane = nowa_lista
+
+    def daj_pier_rok(self):
+        return self.__pier_rok_wyk
+
+    def daj_ost_rok(self):
+        return self.__ost_rok_wyk
 
