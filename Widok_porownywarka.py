@@ -17,6 +17,8 @@ class Wykres(QWidget):
 
         # Utwórz kanvas dla figury
         self.canvas = FigureCanvas(self.figure)
+        self.canvas.setMinimumSize(1000, 1000)  # Minimalny rozmiar kanvasu
+        self.canvas.setMaximumSize(1000, 1000)  # Maksymalny rozmiar kanvasu
 
         # Dodaj kanvas do układu
         layout.addWidget(self.canvas)

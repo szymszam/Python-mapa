@@ -13,7 +13,7 @@ class MainWindow(QMainWindow):
         self.setWindowTitle('Los Elektrikos')
 
         self.__init_view()
-        self.show()
+        self.showMaximized()  # Maksymalizuj okno po jego utworzeniu
 
     def __init_view(self):
         self.buttons_trybow_panel = Buttons_trybow_panel(self, self.__DANE_1)
@@ -26,6 +26,7 @@ class MainWindow(QMainWindow):
 
         # Ustawienie głównego widgetu jako centralny widget
         self.setCentralWidget(main_widget)
+
 
 
 class Buttons_trybow_panel(QTabWidget):
@@ -74,8 +75,8 @@ class Tab2(QWidget):
         self.__Searchbar = Searchbar(self, self.__DANE_1)
         self.__Wykres = Wykres(self.__DANE_1)
 
-        self.layout.addWidget(self.__Searchbar, 0, 1)
-        self.layout.addWidget(self.__Wykres, 1, 0)
+        self.layout.addWidget(self.__Searchbar, 0, 0, 1, 1)
+        self.layout.addWidget(self.__Wykres, 0, 1, 2, 2)
 
     def wyczysc_tab2(self):
         for i in reversed(range(self.layout.count())):
@@ -84,7 +85,7 @@ class Tab2(QWidget):
                 widget_to_remove.setParent(None)
 
     def zapelnij_bts_panstwa_tab2(self):
-        self.layout.addWidget(Buttons_lista_panstw(self.__Wykres, self.__DANE_1), 1, 1)
+        self.layout.addWidget(Buttons_lista_panstw(self.__Wykres, self.__DANE_1), 1, 0, 1, 1)
 
 
 class Tab3(QWidget):
