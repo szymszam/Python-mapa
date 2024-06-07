@@ -117,7 +117,6 @@ class Tab3(QWidget):
         super().__init__(parent)
         self.layout = QGridLayout(self)
         self.setLayout(self.layout)
-
         # Dodanie widgetów do layoutu, jeśli jakieś są potrzebne
         # self.layout.addWidget(...)
 
