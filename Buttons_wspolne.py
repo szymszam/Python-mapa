@@ -1,7 +1,8 @@
+from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import QTabWidget, QPushButton, QVBoxLayout, QWidget, QMainWindow, QGridLayout, QFileDialog
 from PyQt6.QtGui import QFont
 from Dane_IO import Fabryka_wejscia_wykresy
-from Buttons_porownywarka import Buttons_lista_panstw, Szukaj_i_zapisz
+from Buttons_porownywarka import Buttons_lista_panstw, Szukaj_i_zapisz, Suwaki_lat
 from PanstwaM import Lista_panstw_z_filtowaniem
 from Wykres_porownywarka import Wykres
 
@@ -54,6 +55,12 @@ class Buttons_trybow_panel(QTabWidget):
     def zapelnij_bts_panstwa_tab2(self):
         self.tab2.zapelnij_bts_panstwa_tab2()
 
+    def keyPressEvent(self, event):
+        if event.key() == Qt.Key.Key_Escape:
+            if self.isFullScreen():
+                self.showNormal()  # Wyjście z trybu pełnoekranowego
+            self.close()
+
 
 class Tab1(QWidget):
     def __init__(self, parent, DANE_1):
@@ -76,15 +83,20 @@ class Tab2(QWidget):
 
         self.__Wykres = Wykres(self.__DANE_1)
         self.__Resta_przyciskow = Szukaj_i_zapisz(self, self.__DANE_1, self.__Wykres)
+        self.__Suwaki = Suwaki_lat()
 
         self.__Wykres.setParent(self)
         self.__Resta_przyciskow.setParent(self)
+        self.__Suwaki.setParent(self)
 
         self.__Wykres.move(0, 0)
         self.__Wykres.setFixedSize(1300, 900)
 
         self.__Resta_przyciskow.move(1300, 50)
         self.__Resta_przyciskow.setFixedSize(400, 50)
+
+        self.__Suwaki.move(200,700)
+
 
     def wyczysc_tab2(self):
         self.__Przyciski_panstw.setVisible(False)

@@ -1,5 +1,7 @@
 import sys
-from PyQt6.QtWidgets import QVBoxLayout, QPushButton, QWidget, QLineEdit, QGridLayout, QHBoxLayout
+
+from PyQt6.QtCore import Qt
+from PyQt6.QtWidgets import QVBoxLayout, QPushButton, QWidget, QLineEdit, QGridLayout, QHBoxLayout, QSlider
 from PanstwaM import Lista_panstw, Lista_panstw_z_filtowaniem
 
 # Przycisk reprezentujący pojedyncze państwo
@@ -113,5 +115,45 @@ class Przycisk_zapisu(QPushButton):
 
     def __zapisz(self):
         self.__wykres.zapisz_wykres_jako_pdf()
+
+class Suwaki_lat(QWidget):
+    def __init__(self):
+        super().__init__()
+        self.stworz_suwaki()
+    def stworz_suwaki(self):
+        self.min_slider = QSlider(Qt.Orientation.Horizontal, self)
+        self.min_slider.setMinimum(0)
+        self.min_slider.setMaximum(12)
+        self.min_slider.setTickPosition(QSlider.TickPosition.TicksBelow)
+        self.min_slider.setTickInterval(12)
+        self.min_slider.valueChanged.connect(self.updateMinValue)
+
+        self.max_slider = QSlider(Qt.Orientation.Horizontal, self)
+        self.max_slider.setMinimum(0)
+        self.max_slider.setMaximum(12)
+        self.max_slider.setValue(12)
+        self.max_slider.setTickPosition(QSlider.TickPosition.TicksBelow)
+        self.max_slider.setTickInterval(12)
+        self.max_slider.valueChanged.connect(self.updateMaxValue)
+
+        layout = QVBoxLayout()
+        layout.addWidget(self.min_slider)
+        layout.addWidget(self.max_slider)
+
+        self.setLayout(layout)
+
+    def updateMinValue(self, value):
+        max_value = self.max_slider.value()
+        if value > max_value:
+            self.min_slider.setValue(max_value)
+        # else:
+        #     self.min_label.setText(f'Minimalna wartość: {value}')
+
+    def updateMaxValue(self, value):
+        min_value = self.min_slider.value()
+        if value < min_value:
+            self.max_slider.setValue(min_value)
+        # else:
+        #     self.max_label.setText(f'Maksymalna wartość: {value}')
 
 
