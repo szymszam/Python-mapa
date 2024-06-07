@@ -47,6 +47,15 @@ class Wejscie_xlsx_wykresy(Wejscie): #dajemy scierzke zwraca nam obiekt klasy Li
             lista_obiektow_panstwo.append(temp)
         return Lista_panstw(lista_obiektow_panstwo)
 
+class Wejscie_txt_mapa(Wejscie):
+    def __init__(self, sciezka):
+        self.sciezka = sciezka
+
+    def czytaj(self):
+        with open(self.sciezka, "r") as f:
+            for line in f:
+                zawartosc = line.strip()
+
 class Dane_porownywarka:
     def __init__(self):
         self.__panstwa_orginalne = Lista_panstw()
