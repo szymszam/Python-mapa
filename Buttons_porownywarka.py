@@ -142,17 +142,17 @@ class Suwaki_lat(QWidget):
 
         self.setLayout(layout)
 
-    def updateMinValue(self, value):
-        max_value = self.max_slider.value()
-        if value > max_value:
-            self.min_slider.setValue(max_value)
+    def updateMinValue(self, wartosc):
+        max_war = self.max_slider.value()
+        if wartosc > max_war:
+            self.min_slider.setValue(max_war)
         # else:
         #     self.min_label.setText(f'Minimalna wartość: {value}')
 
-    def updateMaxValue(self, value):
-        min_value = self.min_slider.value()
-        if value < min_value:
-            self.max_slider.setValue(min_value)
+    def updateMaxValue(self, wartosc):
+        min_war = self.min_slider.value()
+        if wartosc < min_war:
+            self.max_slider.setValue(min_war)
         # else:
         #     self.max_label.setText(f'Maksymalna wartość: {value}')
 
