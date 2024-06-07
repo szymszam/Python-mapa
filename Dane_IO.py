@@ -20,16 +20,16 @@ class Wejscie(ABC):  # interface
 
 class Wejscie_xlsx_wykresy(Wejscie):  # dajemy scierzke zwraca nam obiekt klasy Lista_panstw
     def __init__(self, sciezka):
-        self.sciezka = sciezka
+        self.__sciezka = sciezka
 
     def czytaj(self):
-        wynik = self.__xlsx_do_pandas(self.sciezka)
+        wynik = self.__xlsx_do_pandas()
         wynik = self.__kondycjonuj(wynik)
         wynik = self.__stworz_obiekty(wynik[0], wynik[1])
         return wynik
 
-    def __xlsx_do_pandas(self, patch):
-        arkusz_wycinek = pd.read_excel(patch, sheet_name='Sheet 1')
+    def __xlsx_do_pandas(self):
+        arkusz_wycinek = pd.read_excel(self.__sciezka, sheet_name='Sheet 1')
         arkusz_wycinek = arkusz_wycinek.iloc[9:]
         arkusz_wycinek = arkusz_wycinek.reset_index(drop=True)
         indeks_konca = arkusz_wycinek[arkusz_wycinek.eq("Special value").any(axis=1)].index[0] - 1
