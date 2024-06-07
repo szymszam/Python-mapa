@@ -10,7 +10,6 @@ class MainWindow(QMainWindow):
     def __init__(self, DANE_1):
         super().__init__()
         self.__DANE_1 = DANE_1
-        self.setGeometry(350, 100, 1500, 1100)
         self.setWindowTitle('Los Elektrikos')
 
         self.__init_view()

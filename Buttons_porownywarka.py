@@ -1,5 +1,5 @@
 import sys
-from PyQt6.QtWidgets import QVBoxLayout, QPushButton, QWidget, QLineEdit, QGridLayout
+from PyQt6.QtWidgets import QVBoxLayout, QPushButton, QWidget, QLineEdit, QGridLayout, QHBoxLayout
 from PanstwaM import Lista_panstw, Lista_panstw_z_filtowaniem
 
 # Przycisk reprezentujący pojedyncze państwo
@@ -58,11 +58,11 @@ class Buttons_lista_panstw(QWidget):
         col = 0
         for i in range(len(dane)):
             btn = Button_panstwo(dane[i], self.__wykres, self.__DANE_1)
-            btn.setFixedSize(100, 37)  # Ustawia rozmiar przycisku na 75% oryginalnej wartości
+            btn.setFixedSize(100, 37)  # Ustawia rozmiar przycisku
             layout.addWidget(btn, row, col)
 
             col += 1
-            if col >= 2:  # Ustawia przyciski w dwóch kolumnach
+            if col >= 3:  # Ustawia przyciski w trzech kolumnach
                 col = 0
                 row += 1
 
@@ -73,26 +73,22 @@ class Buttons_lista_panstw(QWidget):
 class Searchbar(QWidget):
     def __init__(self, panel_glowny=None, DANE_1=None):
         super().__init__()
-        self.stworz_searchbar("Wpisz termin")
         self.__panel_glowny = panel_glowny
         self.__DANE_1 = DANE_1
+        self.stworz_searchbar("Wpisz termin")
 
-
-    # Tworzy searchbar i guzik
     def stworz_searchbar(self, placeholder_text):
         self.line_edit = QLineEdit()
         self.line_edit.setPlaceholderText(placeholder_text)
+
         self.save_button = QPushButton("Szukaj")
         self.save_button.clicked.connect(self.filtruj_searchbar)
 
-        layout = QVBoxLayout()
-        self.save_button.setFixedSize(100, 50)  # Ustawia rozmiar przycisku
-        self.line_edit.setFixedSize(100, 50)  # Ustawia rozmiar searchbara
+        layout = QHBoxLayout()
         layout.addWidget(self.line_edit)
         layout.addWidget(self.save_button)
         self.setLayout(layout)
 
-    #funkcja dzialajaca po kjliknieciu guzika szukaj aktualnie zmienia wartosc DANE.panstwa_filtowane
     def filtruj_searchbar(self):
         temp = self.__DANE_1.daj_filtrowane()
         temp = Lista_panstw_z_filtowaniem(temp)
@@ -105,8 +101,5 @@ class Przycisk_zapisu(QPushButton):
     def __init__(self, wykres):
         super().__init__("Zapisz jako PDF")
         self.__wykres = wykres
-        self.clicked.connect(self.__zapisz)
-
-    def __zapisz(self):
-        self.__wykres.zapisz_wykres_jako_pdf()
-
+        self.setFixedSize(60, 20)
+        self.setStyleSheet("font-size: 10px; font-family")

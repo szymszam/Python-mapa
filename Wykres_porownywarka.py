@@ -20,8 +20,6 @@ class Wykres(QWidget):
 
         # Utwórz kanvas dla figury
         self.canvas = FigureCanvas(self.figure)
-        self.canvas.setMinimumSize(1000, 1000)  # Minimalny rozmiar kanvasu
-        self.canvas.setMaximumSize(1000, 1000)  # Maksymalny rozmiar kanvasu
 
         # Dodaj kanvas do układu
         layout.addWidget(self.canvas)
@@ -84,7 +82,7 @@ class Wykres(QWidget):
         self.ax.grid(True, which='both', linestyle='--', linewidth=0.5)
 
         # Ustaw legendę
-        self.ax.legend(title="Państwa", bbox_to_anchor=(1.05, 1), loc='upper left')
+        self.ax.legend(title="Państwa")
 
         # Odśwież wykres
         self.canvas.draw()
