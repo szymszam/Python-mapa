@@ -16,7 +16,7 @@ class Ladowarka:
         return f"Nazwa:{self.__nazwa} X:{self.__x} Y:{self.__y}"
 
     def __eq__(self, other):
-        return self.__nazwa == other.__nazwa
+        return self.__nazwa == other.__nazwa or self.__x == other.__x and self.__y == other.__y
 
 
 class Lista_ladowarek:
