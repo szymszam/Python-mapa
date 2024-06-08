@@ -50,7 +50,7 @@ class Buttons_trybow_panel(QTabWidget):
         self.addTab(self.tab2, "Porownywarka")
 
     def stworz_tab3(self):
-        self.tab3 = Tab3(self)
+        self.tab3 = Tab3(self, self.__DANE_2)
         self.addTab(self.tab3, "Mapa")
 
     def wyczysc_tab2(self):
@@ -117,11 +117,14 @@ class Tab2(QWidget):
 
 
 class Tab3(QWidget):
-    def __init__(self, parent):
+    def __init__(self, parent, DANE_2):
         super().__init__(parent)
+        self.__DANE_2 = DANE_2
+        self.__Widok = MapWidget(DANE_2)
+
         self.layout = QVBoxLayout(self)
         self.setLayout(self.layout)
-
+        self.layout.addWidget(self.__Widok)
 
 
 
@@ -166,7 +169,6 @@ class Button_Wczytywanie(QPushButton):
 
             # Tworzenie zakładek 2 i 3 i zapełnienie zakładki 2
             self.__glowny_panel.stworz_tab2()
-            self.__glowny_panel.stworz_tab3()
             self.__glowny_panel.zapelnij_bts_panstwa_tab2()
 
             self.__DANE_1.zmien_ost_rok(len(self.__DANE_1.daj_orginalne().daj_panstwa()[0].daj_ilosc()))
@@ -178,8 +180,6 @@ class Button_Wczytywanie(QPushButton):
         lista_ladowarek = czytajnik.czytaj()
         for ladowarka in lista_ladowarek:
             self.__DANE_2.dodaj_ladowarke(ladowarka)
-
-        for ladowarka in self.__DANE_2.daj_ladowarki():
-            print(ladowarka)
+        self.__glowny_panel.stworz_tab3()
 
 

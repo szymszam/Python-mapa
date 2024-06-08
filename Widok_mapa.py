@@ -86,19 +86,3 @@ class MapWidget(QtWidgets.QWidget):
         layout.addWidget(self.przyciski)
         self.setLayout(layout)
 
-
-# if __name__ == "__main__":
-#     Fabryka = Fabryka_wejscia_mapa()
-#     czytajnik = Fabryka.daj_wejscie(r"C:\Users\User\Desktop\stacje_ładowania_pojazdów_projekt_2024L\stacje.txt")
-#     Ladowarki = czytajnik.czytaj()
-#     app = QtWidgets.QApplication(sys.argv)
-# 
-#     window = QtWidgets.QMainWindow()
-#     window.setWindowTitle("Mapa z PyQt6 i Folium")
-#     window.setGeometry(100, 100, 800, 600)
-# 
-#     map_widget = MapWidget(Ladowarki)
-#     window.setCentralWidget(map_widget)
-# 
-#     window.show()
-#     sys.exit(app.exec())
