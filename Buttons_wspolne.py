@@ -5,6 +5,7 @@ from Dane_IO import Fabryka_wejscia_wykresy
 from Buttons_porownywarka import Buttons_lista_panstw, Szukaj_i_zapisz, Suwaki_lat
 from PanstwaM import Lista_panstw_z_filtowaniem
 from Wykres_porownywarka import Wykres
+from Widok_mapa import MapWidget
 
 
 class MainWindow(QMainWindow):
@@ -115,10 +116,10 @@ class Tab2(QWidget):
 class Tab3(QWidget):
     def __init__(self, parent):
         super().__init__(parent)
-        self.layout = QGridLayout(self)
+        self.layout = QVBoxLayout(self)
         self.setLayout(self.layout)
-        # Dodanie widgetów do layoutu, jeśli jakieś są potrzebne
-        # self.layout.addWidget(...)
+
+
 
 
 class Button_Wczytywanie(QPushButton):
