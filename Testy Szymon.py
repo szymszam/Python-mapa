@@ -1,6 +1,6 @@
 import folium
 import sys
-from PyQt5 import QtWidgets, QtWebEngineWidgets
+from PyQt6 import QtWidgets, QtWebEngineWidgets
 
 class Map:
     def __init__(self):
@@ -17,8 +17,6 @@ class Map:
 
     def get_html(self):
         return self.map.get_root().render()
-
-
 
 class MapWidget(QtWidgets.QWidget):
     def __init__(self):
@@ -51,11 +49,14 @@ class MapWidget(QtWidgets.QWidget):
         coords = self.coords_input.text()
         name = self.name_input.text()
         if coords and name:
-            lat, lon = map(float, coords.split(','))
-            self.map.add_point(lat, lon, name)
-            self.webview.setHtml(self.map.get_html())
-            self.coords_input.clear()
-            self.name_input.clear()
+            try:
+                lat, lon = map(float, coords.split(','))
+                self.map.add_point(lat, lon, name)
+                self.webview.setHtml(self.map.get_html())
+                self.coords_input.clear()
+                self.name_input.clear()
+            except ValueError:
+                QtWidgets.QMessageBox.warning(self, "Błąd", "Nieprawidłowe współrzędne. Użyj formatu: lat, lon")
 
     def remove_all_points(self):
         self.map.remove_all_points()
@@ -65,11 +66,11 @@ if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
 
     window = QtWidgets.QMainWindow()
-    window.setWindowTitle("Mapa z PyQt5 i Folium")
+    window.setWindowTitle("Mapa z PyQt6 i Folium")
     window.setGeometry(100, 100, 800, 600)
 
     map_widget = MapWidget()
     window.setCentralWidget(map_widget)
 
     window.show()
-    sys.exit(app.exec_())
+    sys.exit(app.exec())
