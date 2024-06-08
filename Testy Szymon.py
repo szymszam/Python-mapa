@@ -9,7 +9,8 @@ class Map:
         self.map = folium.Map(location=[52.2297, 21.0122], zoom_start=6)
         self.marker_group = folium.FeatureGroup()
         for ladowarka in self.__Lista_ladowarek[:500]:
-            X, Y = ladowarka.daj_lokacje()
+            X = ladowarka.daj_X()
+            Y = ladowarka.daj_Y()
             Nazwa = ladowarka.daj_nazwa()
             self.add_point(X, Y, Nazwa)
 

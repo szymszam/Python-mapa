@@ -4,16 +4,19 @@ class Ladowarka:
         self.__y = y
         self.__nazwa = nazwa
 
-    def daj_lokacje(self):
-        return (self.__x, self.__y)
+    def daj_X(self):
+        return self.__x
+
+    def daj_Y(self):
+        return self.__y
 
     def daj_nazwa(self):
         return self.__nazwa
     def __repr__(self):
-        return f"{self.__nazwa}: {self.__x}, {self.__y}"
+        return f"Nazwa:{self.__nazwa} X:{self.__x} Y:{self.__y}"
 
     def __eq__(self, other):
-        return self.__x == other.__x and self.__y == other.__y
+        return self.__nazwa == other.__nazwa
 
 
 class Lista_ladowarek:
