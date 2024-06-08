@@ -12,6 +12,7 @@ class Ladowarka:
 
     def daj_nazwa(self):
         return self.__nazwa
+
     def __repr__(self):
         return f"Nazwa:{self.__nazwa} X:{self.__x} Y:{self.__y}"
 
@@ -20,7 +21,7 @@ class Ladowarka:
 
 
 class Lista_ladowarek:
-    def __init__(self, ladowarki = []):
+    def __init__(self, ladowarki=[]):
         self.__ladowarki = ladowarki
 
     def daj_ladowarki(self):
@@ -31,4 +32,3 @@ class Lista_ladowarek:
 
     def usun_ladowarke(self, ladowarka):
         self.__ladowarki.remove(ladowarka)
-

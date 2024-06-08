@@ -3,6 +3,7 @@ from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg as FigureCanvas
 from PyQt6.QtWidgets import QWidget, QVBoxLayout, QFileDialog
 import seaborn as sns
 
+
 class Wykres(QWidget):
     def __init__(self, DANE_1):
         super().__init__()
@@ -35,14 +36,15 @@ class Wykres(QWidget):
         # Dodaj przykładowe dane do wykresu
         self.zaladuj_wykres()
 
-#Aktualizacja wykresu - wykorzusyje dane zawarte w DANE_1 a dokładniej panstwa zazanaczone oraz lata
+    # Aktualizacja wykresu - wykorzusyje dane zawarte w DANE_1 a dokładniej panstwa zazanaczone oraz lata
     def zaladuj_wykres(self):
         self.__Panstwa = []
         for panstwo in self.__DANE_1.daj_zaznaczone().daj_panstwa():
             nazwa = panstwo.daj_nazwa()
             ilosci = panstwo.daj_ilosc()
-            categories = [x + 2013 for x in range(len(ilosci) )]
-            self.__Panstwa.append([nazwa, ilosci[self.__DANE_1.daj_pier_rok():self.__DANE_1.daj_ost_rok()], categories[self.__DANE_1.daj_pier_rok():self.__DANE_1.daj_ost_rok()]])
+            categories = [x + 2013 for x in range(len(ilosci))]
+            self.__Panstwa.append([nazwa, ilosci[self.__DANE_1.daj_pier_rok():self.__DANE_1.daj_ost_rok()],
+                                   categories[self.__DANE_1.daj_pier_rok():self.__DANE_1.daj_ost_rok()]])
 
         # Usuń poprzednie dane
         self.ax.clear()
@@ -61,7 +63,8 @@ class Wykres(QWidget):
 
         # Dodaj nowe dane
         for i, (nazwa, ilosci, categories) in enumerate(self.__Panstwa):
-            bars = self.ax.bar([x + bar_offsets[i] for x in categories], ilosci, label=nazwa, width=bar_width, color=colors[i])
+            bars = self.ax.bar([x + bar_offsets[i] for x in categories], ilosci, label=nazwa, width=bar_width,
+                               color=colors[i])
             # Dodaj etykiety na słupkach
             for bar in bars:
                 yval = bar.get_height()

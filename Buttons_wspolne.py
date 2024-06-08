@@ -77,7 +77,6 @@ class Tab1(QWidget):
         button.move(750, 360)
 
 
-
 class Tab2(QWidget):
     def __init__(self, parent, DANE_1):
         super().__init__(parent)
@@ -99,21 +98,18 @@ class Tab2(QWidget):
         self.__Reszta_przyciskow.move(1300, 50)
         self.__Reszta_przyciskow.setFixedSize(400, 50)
 
-        self.__Suwaki.move(200,900)
+        self.__Suwaki.move(200, 900)
         self.__Suwaki.setFixedSize(700, 150)
-
 
     def wyczysc_tab2(self):
         self.__Przyciski_panstw.setVisible(False)
 
-
-
     def zapelnij_bts_panstwa_tab2(self):
-         self.__Przyciski_panstw = Buttons_lista_panstw(self.__Wykres, self.__DANE_1)
-         self.__Przyciski_panstw.setParent(self)
-         self.__Przyciski_panstw.move(1300, 100)
-         self.__Przyciski_panstw.setFixedSize(400, 800)
-         self.__Przyciski_panstw.setVisible(True)
+        self.__Przyciski_panstw = Buttons_lista_panstw(self.__Wykres, self.__DANE_1)
+        self.__Przyciski_panstw.setParent(self)
+        self.__Przyciski_panstw.move(1300, 100)
+        self.__Przyciski_panstw.setFixedSize(400, 800)
+        self.__Przyciski_panstw.setVisible(True)
 
 
 class Tab3(QWidget):
@@ -125,7 +121,6 @@ class Tab3(QWidget):
         self.layout = QVBoxLayout(self)
         self.setLayout(self.layout)
         self.layout.addWidget(self.__Widok)
-
 
 
 class Button_Wczytywanie(QPushButton):
@@ -146,7 +141,6 @@ class Button_Wczytywanie(QPushButton):
     def klik(self):
         self.czytaj_porownywarka()
         self.czytaj_mapa()
-
 
     def czytaj_porownywarka(self):
         # Wybór pliku za pomocą dialogu
@@ -181,5 +175,3 @@ class Button_Wczytywanie(QPushButton):
         for ladowarka in lista_ladowarek:
             self.__DANE_2.dodaj_ladowarke(ladowarka)
         self.__glowny_panel.stworz_tab3()
-
-
