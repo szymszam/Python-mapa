@@ -1,7 +1,7 @@
 from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import QTabWidget, QPushButton, QVBoxLayout, QWidget, QMainWindow, QGridLayout, QFileDialog
 from PyQt6.QtGui import QFont
-from Dane_IO import Fabryka_wejscia_wykresy
+from Dane_IO import Fabryka_wejscia_wykresy, Fabryka_wejscia_mapa
 from Buttons_porownywarka import Buttons_lista_panstw, Szukaj_i_zapisz, Suwaki_lat
 from PanstwaM import Lista_panstw_z_filtowaniem
 from Wykres_porownywarka import Wykres
@@ -9,16 +9,18 @@ from Widok_mapa import MapWidget
 
 
 class MainWindow(QMainWindow):
-    def __init__(self, DANE_1):
+    def __init__(self, DANE_1, DANE_2):
         super().__init__()
         self.__DANE_1 = DANE_1
+        self.__DANE_2 = DANE_2
+
         self.setWindowTitle('Los Elektrikos')
 
         self.__init_view()
         self.showFullScreen()  # Maksymalizuj okno po jego utworzeniu
 
     def __init_view(self):
-        self.buttons_trybow_panel = Buttons_trybow_panel(self, self.__DANE_1)
+        self.buttons_trybow_panel = Buttons_trybow_panel(self, self.__DANE_1, self.__DANE_2)
 
         # Tworzenie głównego widgetu
         main_widget = QWidget(self)
@@ -31,15 +33,16 @@ class MainWindow(QMainWindow):
 
 
 class Buttons_trybow_panel(QTabWidget):
-    def __init__(self, main_window, DANE_1):
+    def __init__(self, main_window, DANE_1, DANE_2):
         super().__init__()
 
         self.main_window = main_window
 
         self.__DANE_1 = DANE_1
+        self.__DANE_2 = DANE_2
 
         # Tworzenie i dodawanie zakładek
-        self.tab1 = Tab1(self, self.__DANE_1)
+        self.tab1 = Tab1(self, self.__DANE_1, self.__DANE_2)
         self.addTab(self.tab1, "Wczytywanie")
 
     def stworz_tab2(self):
@@ -64,12 +67,12 @@ class Buttons_trybow_panel(QTabWidget):
 
 
 class Tab1(QWidget):
-    def __init__(self, parent, DANE_1):
+    def __init__(self, parent, DANE_1, DANE_2):
         super().__init__(parent)
         self.layout = QVBoxLayout(self)
         self.setLayout(self.layout)
 
-        button = Button_Wczytywanie(parent, DANE_1)
+        button = Button_Wczytywanie(parent, DANE_1, DANE_2)
         button.setParent(self)
         button.move(750, 360)
 
@@ -123,10 +126,11 @@ class Tab3(QWidget):
 
 
 class Button_Wczytywanie(QPushButton):
-    def __init__(self, glowny_panel, DANE_1):
+    def __init__(self, glowny_panel, DANE_1, DANE_2):
         super().__init__("Wczytywanie")
         self.__glowny_panel = glowny_panel
         self.__DANE_1 = DANE_1
+        self.__DANE_2 = DANE_2
 
         self.setFixedSize(400, 120)
         font = QFont("Arial", 26)
@@ -137,8 +141,13 @@ class Button_Wczytywanie(QPushButton):
         self.setStyleSheet("font-size: 24px; font-family: Arial")
 
     def klik(self):
+        self.czytaj_porownywarka()
+        self.czytaj_mapa()
+
+
+    def czytaj_porownywarka(self):
         # Wybór pliku za pomocą dialogu
-        plik, _ = QFileDialog.getOpenFileName(self, "Wybierz plik", "", "Wszystkie pliki (*)")
+        plik, _ = QFileDialog.getOpenFileName(self, "Wybierz plik do trybu wykresów", "", "Wszystkie pliki (*)")
 
         if plik:
             # Wczytywanie danych do DANE
@@ -161,3 +170,16 @@ class Button_Wczytywanie(QPushButton):
             self.__glowny_panel.zapelnij_bts_panstwa_tab2()
 
             self.__DANE_1.zmien_ost_rok(len(self.__DANE_1.daj_orginalne().daj_panstwa()[0].daj_ilosc()))
+
+    def czytaj_mapa(self):
+        plik, _ = QFileDialog.getOpenFileName(self, "Wybierz plik do tryby mapy", "", "Wszystkie pliki (*)")
+        czytajnik = Fabryka_wejscia_mapa()
+        czytajnik = czytajnik.daj_wejscie(plik)
+        lista_ladowarek = czytajnik.czytaj()
+        for ladowarka in lista_ladowarek:
+            self.__DANE_2.dodaj_ladowarke(ladowarka)
+
+        for ladowarka in self.__DANE_2.daj_ladowarki():
+            print(ladowarka)
+
+

@@ -9,13 +9,15 @@ class Ladowarka:
 
     def daj_nazwa(self):
         return self.__nazwa
+    def __repr__(self):
+        return f"{self.__nazwa}: {self.__x}, {self.__y}"
 
     def __eq__(self, other):
         return self.__x == other.__x and self.__y == other.__y
 
 
 class Lista_ladowarek:
-    def __init__(self, ladowarki):
+    def __init__(self, ladowarki = []):
         self.__ladowarki = ladowarki
 
     def daj_ladowarki(self):

@@ -73,7 +73,7 @@ class Wejscie_txt_mapa(Wejscie):
                 y = czesci[1]
                 nazwa = " ".join(czesci[2:])
                 lista_ladowarek.append(Ladowarka(x,y,nazwa))
-        return Lista_ladowarek(lista_ladowarek)
+        return lista_ladowarek
 
 
 class Dane_porownywarka:
@@ -113,18 +113,3 @@ class Dane_porownywarka:
 
     def zmien_ost_rok(self, nowy_rok):
         self.__ost_rok_wyk = nowy_rok
-
-class Dane_mapa:
-    def __init__(self):
-        self.__Obiekt_lista_ladowarek = None
-
-    def daj_ladowark(self):
-        return  self.__Obiekt_lista_ladowarek
-
-    def dodaj_ladowarka(self, ladowarka):
-        if ladowarka not in self.__Obiekt_lista_ladowarek:
-            self.__Obiekt_lista_ladowarek.append(ladowarka)
-
-    def usun_ladowarka(self, ladowarka):
-        if ladowarka in self.__Obiekt_lista_ladowarek:
-            self.__Obiekt_lista_ladowarek.remove(ladowarka)
