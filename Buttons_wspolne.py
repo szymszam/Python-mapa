@@ -20,12 +20,12 @@ class MainWindow(QMainWindow):
         self.showFullScreen()  # Maksymalizuj okno po jego utworzeniu
 
     def __init_view(self):
-        self.buttons_trybow_panel = Buttons_trybow_panel(self, self.__DANE_1, self.__DANE_2)
+        self.__buttons_trybow_panel = Buttons_trybow_panel(self.__DANE_1, self.__DANE_2)
 
         # Tworzenie głównego widgetu
         main_widget = QWidget(self)
         main_layout = QVBoxLayout()
-        main_layout.addWidget(self.buttons_trybow_panel)
+        main_layout.addWidget(self.__buttons_trybow_panel)
         main_widget.setLayout(main_layout)
 
         # Ustawienie głównego widgetu jako centralny widget
@@ -33,48 +33,41 @@ class MainWindow(QMainWindow):
 
 
 class Buttons_trybow_panel(QTabWidget):
-    def __init__(self, main_window, DANE_1, DANE_2):
+    def __init__(self, DANE_1, DANE_2):
         super().__init__()
 
-        self.main_window = main_window
 
         self.__DANE_1 = DANE_1
         self.__DANE_2 = DANE_2
 
         # Tworzenie i dodawanie zakładek
-        self.tab1 = Tab1(self, self.__DANE_1, self.__DANE_2)
-        self.addTab(self.tab1, "Wczytywanie")
+        self.__tab1 = Tab1(self, self.__DANE_1, self.__DANE_2)
+        self.addTab(self.__tab1, "Wczytywanie")
 
     def stworz_tab2(self):
-        self.tab2 = Tab2(self, self.__DANE_1)
-        self.addTab(self.tab2, "Porownywarka")
+        self.__tab2 = Tab2(self, self.__DANE_1)
+        self.addTab(self.__tab2, "Porownywarka")
 
     def stworz_tab3(self):
-        self.tab3 = Tab3(self, self.__DANE_2)
-        self.addTab(self.tab3, "Mapa")
+        self.__tab3 = Tab3(self, self.__DANE_2)
+        self.addTab(self.__tab3, "Mapa")
 
     def wyczysc_tab2(self):
-        self.tab2.wyczysc_tab2()
+        self.__tab2.wyczysc_tab2()
 
     def zapelnij_bts_panstwa_tab2(self):
-        self.tab2.zapelnij_bts_panstwa_tab2()
-
-    def keyPressEvent(self, event):
-        if event.key() == Qt.Key.Key_Escape:
-            if self.isFullScreen():
-                self.showNormal()  # Wyjście z trybu pełnoekranowego
-            self.close()
+        self.__tab2.zapelnij_bts_panstwa_tab2()
 
 
 class Tab1(QWidget):
     def __init__(self, parent, DANE_1, DANE_2):
         super().__init__(parent)
-        self.layout = QVBoxLayout(self)
-        self.setLayout(self.layout)
+        self.__layout = QVBoxLayout(self)
+        self.setLayout(self.__layout)
 
-        button = Button_Wczytywanie(parent, DANE_1, DANE_2)
-        button.setParent(self)
-        button.move(750, 360)
+        self.__button = Button_Wczytywanie(parent, DANE_1, DANE_2)
+        self.__button.setParent(self)
+        self.__button.move(750, 360)
 
 
 class Tab2(QWidget):
@@ -118,9 +111,9 @@ class Tab3(QWidget):
         self.__DANE_2 = DANE_2
         self.__Widok = MapWidget(DANE_2)
 
-        self.layout = QVBoxLayout(self)
-        self.setLayout(self.layout)
-        self.layout.addWidget(self.__Widok)
+        self.__layout = QVBoxLayout(self)
+        self.setLayout(self.__layout)
+        self.__layout.addWidget(self.__Widok)
 
 
 class Button_Wczytywanie(QPushButton):
@@ -139,10 +132,10 @@ class Button_Wczytywanie(QPushButton):
         self.setStyleSheet("font-size: 24px; font-family: Arial")
 
     def klik(self):
-        self.czytaj_porownywarka()
-        self.czytaj_mapa()
+        self.__czytaj_porownywarka()
+        self.__czytaj_mapa()
 
-    def czytaj_porownywarka(self):
+    def __czytaj_porownywarka(self):
         # Wybór pliku za pomocą dialogu
         plik, _ = QFileDialog.getOpenFileName(self, "Wybierz plik do trybu wykresów", "", "Wszystkie pliki (*)")
 
@@ -167,7 +160,7 @@ class Button_Wczytywanie(QPushButton):
 
             self.__DANE_1.zmien_ost_rok(len(self.__DANE_1.daj_orginalne().daj_panstwa()[0].daj_ilosc()))
 
-    def czytaj_mapa(self):
+    def __czytaj_mapa(self):
         plik, _ = QFileDialog.getOpenFileName(self, "Wybierz plik do tryby mapy", "", "Wszystkie pliki (*)")
         czytajnik = Fabryka_wejscia_mapa()
         czytajnik = czytajnik.daj_wejscie(plik)

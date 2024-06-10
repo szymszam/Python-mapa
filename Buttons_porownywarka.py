@@ -47,9 +47,9 @@ class Buttons_lista_panstw(QWidget):
         super().__init__()
         self.__wykres = odwolanie_do_wykresu
         self.__DANE_1 = DANE_1
-        self.stworz_przyciski()
+        self.__stworz_przyciski()
 
-    def stworz_przyciski(self):
+    def __stworz_przyciski(self):
         dane = self.__DANE_1.daj_filtrowane().daj_panstwa()
 
         layout = QGridLayout()  # Użyjemy siatki do umieszczania przycisków
@@ -77,24 +77,24 @@ class Szukaj_i_zapisz(QWidget):
         self.__Wykres = Wykres
         self.setFixedSize(400, 50)
 
-        self.stworz()
+        self.__stworz()
 
-    def stworz(self):
+    def __stworz(self):
         self.line_edit = QLineEdit()
         self.line_edit.setPlaceholderText("Wpisz termin")
         self.line_edit.setFixedSize(130, 30)
 
-        self.przycisk_szukaj = QPushButton("Szukaj")
-        self.przycisk_szukaj.clicked.connect(self.filtruj_searchbar)
-        self.przycisk_szukaj.setFixedSize(100, 30)
+        self.__przycisk_szukaj = QPushButton("Szukaj")
+        self.__przycisk_szukaj.clicked.connect(self.filtruj_searchbar)
+        self.__przycisk_szukaj.setFixedSize(100, 30)
 
-        self.przycisk_zapisz = Przycisk_zapisu(self.__Wykres)
-        self.przycisk_zapisz.setFixedSize(70, 30)
+        self.__przycisk_zapisz = Przycisk_zapisu(self.__Wykres)
+        self.__przycisk_zapisz.setFixedSize(70, 30)
 
         layout = QHBoxLayout()
         layout.addWidget(self.line_edit)
-        layout.addWidget(self.przycisk_szukaj)
-        layout.addWidget(self.przycisk_zapisz)
+        layout.addWidget(self.__przycisk_szukaj)
+        layout.addWidget(self.__przycisk_zapisz)
         self.setLayout(layout)
 
     def filtruj_searchbar(self):
@@ -121,9 +121,9 @@ class Suwaki_lat(QWidget):
         super().__init__()
         self.__DANE_1 = DANE_1
         self.__wykres = Wykres
-        self.stworz_suwaki()
+        self.__stworz_suwaki()
 
-    def stworz_suwaki(self):
+    def __stworz_suwaki(self):
         self.min_slider = QSlider(Qt.Orientation.Horizontal, self)
         self.min_slider.setMinimum(0)
         self.min_slider.setMaximum(len(self.__DANE_1.daj_orginalne().daj_panstwa()[0].daj_ilosc()))
