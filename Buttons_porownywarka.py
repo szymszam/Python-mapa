@@ -11,7 +11,7 @@ class Button_panstwo(QPushButton):
         self.__panstwo_reprezentowane = panstwo_reprezentowane
         self.__DANE_1 = DANE_1
         self.setFixedSize(400, 900)
-        self.clicked.connect(self.klik)
+        self.clicked.connect(self.__klik)
 
         if self.__panstwo_reprezentowane in self.__DANE_1.daj_zaznaczone().daj_panstwa():
             self.setStyleSheet("background-color: lightblue; color: white;")
@@ -19,7 +19,7 @@ class Button_panstwo(QPushButton):
         else:
             self.click_state = False
 
-    def klik(self):
+    def __klik(self):
         podglad = self.__DANE_1.daj_zaznaczone().daj_panstwa()
 
         if self.__panstwo_reprezentowane not in podglad and len(podglad) < 3:
