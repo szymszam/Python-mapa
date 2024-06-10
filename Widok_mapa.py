@@ -7,22 +7,22 @@ class Map:
     def __init__(self, DANE_2):
         super().__init__()
         self.__DANE_2 = DANE_2
-        self.map = folium.Map(location=[52.2297, 21.0122], zoom_start=6)
-        self.marker_group = folium.FeatureGroup()
+        self.__map = folium.Map(location=[52.2297, 21.0122], zoom_start=6)
+        self.__marker_group = folium.FeatureGroup()
 
         for ladowarka in self.__DANE_2.daj_ladowarki()[1500:]:
             x = ladowarka.daj_X()
             y = ladowarka.daj_Y()
             nazwa = ladowarka.daj_nazwa()
-            self.add_point(x, y, nazwa)
+            self.__add_point(x, y, nazwa)
 
-    def add_point(self, lat, lon, name):
+    def __add_point(self, lat, lon, name):
         marker = folium.Marker(location=[lat, lon], popup=name)
-        self.marker_group.add_child(marker)
-        self.map.add_child(self.marker_group)
+        self.__marker_group.add_child(marker)
+        self.__map.add_child(self.__marker_group)
 
     def get_html(self):
-        return self.map.get_root().render()
+        return self.__map.get_root().render()
 
 
 class Obsluga_mapy(QtWidgets.QWidget):
@@ -37,27 +37,27 @@ class Obsluga_mapy(QtWidgets.QWidget):
         button_layout = QtWidgets.QHBoxLayout()
 
         # Tworzenie pól tekstowych
-        self.pole_x = QtWidgets.QLineEdit(self)
-        self.pole_x.setPlaceholderText("Podaj X")
-        self.pole_y = QtWidgets.QLineEdit(self)
-        self.pole_y.setPlaceholderText("Podaj Y")
-        self.pole_nazwa = QtWidgets.QLineEdit(self)
-        self.pole_nazwa.setPlaceholderText("Podaj Nawa")
+        self.__pole_x = QtWidgets.QLineEdit(self)
+        self.__pole_x.setPlaceholderText("Podaj X")
+        self.__pole_y = QtWidgets.QLineEdit(self)
+        self.__pole_y.setPlaceholderText("Podaj Y")
+        self.__pole_nazwa = QtWidgets.QLineEdit(self)
+        self.__pole_nazwa.setPlaceholderText("Podaj Nawa")
 
         # Dodanie pól tekstowych do layoutu
-        text_layout.addWidget(self.pole_x)
-        text_layout.addWidget(self.pole_y)
-        text_layout.addWidget(self.pole_nazwa)
+        text_layout.addWidget(self.__pole_x)
+        text_layout.addWidget(self.__pole_y)
+        text_layout.addWidget(self.__pole_nazwa)
 
         # Tworzenie przycisków
-        self.Dodawanie = QtWidgets.QPushButton('Dodaj stacje', self)
-        self.Dodawanie.clicked.connect(self.Dodaj_stacje)
-        self.Usuwanie = QtWidgets.QPushButton('Usun stacje', self)
-        self.Usuwanie.clicked.connect(self.Usun_stacje)
+        self.__Dodawanie = QtWidgets.QPushButton('Dodaj stacje', self)
+        self.__Dodawanie.clicked.connect(self.Dodaj_stacje)
+        self.__Usuwanie = QtWidgets.QPushButton('Usun stacje', self)
+        self.__Usuwanie.clicked.connect(self.Usun_stacje)
 
         # Dodanie przycisków do layoutu
-        button_layout.addWidget(self.Dodawanie)
-        button_layout.addWidget(self.Usuwanie)
+        button_layout.addWidget(self.__Dodawanie)
+        button_layout.addWidget(self.__Usuwanie)
 
         # Główny layout
         main_layout = QtWidgets.QVBoxLayout()
@@ -67,11 +67,11 @@ class Obsluga_mapy(QtWidgets.QWidget):
         self.setLayout(main_layout)
 
     def Dodaj_stacje(self):
-        self.__DANE_2.dodaj_ladowarke(Ladowarka(self.pole_x.text(), self.pole_y.text(), self.pole_nazwa.text()))
+        self.__DANE_2.dodaj_ladowarke(Ladowarka(self.__pole_x.text(), self.__pole_y.text(), self.__pole_nazwa.text()))
         self.__wiget_glowny.przeladuj_mape()
 
     def Usun_stacje(self):
-        self.__DANE_2.usun_ladowarke(Ladowarka(self.pole_x.text(), self.pole_y.text(), self.pole_nazwa.text()))
+        self.__DANE_2.usun_ladowarke(Ladowarka(self.__pole_x.text(), self.__pole_y.text(), self.__pole_nazwa.text()))
         self.__wiget_glowny.przeladuj_mape()
 
 
