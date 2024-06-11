@@ -82,18 +82,15 @@ class Szukaj_i_zapisz(QWidget):
     def __stworz(self):
         self.line_edit = QLineEdit()
         self.line_edit.setPlaceholderText("Wpisz termin")
-        self.line_edit.setFixedSize(130, 30)
+        self.line_edit.textChanged.connect(self.filtruj_searchbar)
+        self.line_edit.setFixedSize(260, 30)
 
-        self.__przycisk_szukaj = QPushButton("Szukaj")
-        self.__przycisk_szukaj.clicked.connect(self.filtruj_searchbar)
-        self.__przycisk_szukaj.setFixedSize(100, 30)
 
         self.__przycisk_zapisz = Przycisk_zapisu(self.__Wykres)
         self.__przycisk_zapisz.setFixedSize(70, 30)
-
+        self.__przycisk_zapisz.setStyleSheet("background-color: red; color: white;")
         layout = QHBoxLayout()
         layout.addWidget(self.line_edit)
-        layout.addWidget(self.__przycisk_szukaj)
         layout.addWidget(self.__przycisk_zapisz)
         self.setLayout(layout)
 
@@ -137,7 +134,7 @@ class Suwaki_lat(QWidget):
         self.max_slider.setValue(len(self.__DANE_1.daj_orginalne().daj_panstwa()[0].daj_ilosc()))
         self.max_slider.setTickPosition(QSlider.TickPosition.TicksBelow)
         self.max_slider.setTickInterval(len(self.__DANE_1.daj_orginalne().daj_panstwa()[0].daj_ilosc()))
-        self.max_slider.valueChanged.connect(self.updateMaxValue)
+        self.max_slider.valueChanged.connect(self.nowa_max_war)
 
         layout = QVBoxLayout()
         layout.addWidget(self.min_slider)
@@ -152,7 +149,7 @@ class Suwaki_lat(QWidget):
         self.__DANE_1.zmien_pier_rok(wartosc)
         self.__wykres.zaladuj_wykres()
 
-    def updateMaxValue(self, wartosc):
+    def nowa_max_war(self, wartosc):
         min_war = self.min_slider.value()
         if wartosc < min_war:
             self.max_slider.setValue(min_war)

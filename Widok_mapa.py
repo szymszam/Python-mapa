@@ -2,7 +2,6 @@ import folium
 from PyQt6 import QtWidgets, QtWebEngineWidgets, QtCore
 from LadowarkiM import Ladowarka
 
-
 class Map:
     def __init__(self, DANE_2):
         super().__init__()
