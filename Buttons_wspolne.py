@@ -1,5 +1,5 @@
 from PyQt6.QtCore import Qt
-from PyQt6.QtWidgets import QTabWidget, QPushButton, QVBoxLayout, QWidget, QMainWindow, QGridLayout, QFileDialog
+from PyQt6.QtWidgets import QTabWidget, QPushButton, QVBoxLayout, QWidget, QMainWindow, QGridLayout, QFileDialog, QApplication
 from PyQt6.QtGui import QFont
 from Dane_IO import Fabryka_wejscia_wykresy, Fabryka_wejscia_mapa
 from Buttons_porownywarka import Buttons_lista_panstw, Szukaj_i_zapisz, Suwaki_lat
@@ -57,6 +57,10 @@ class Buttons_trybow_panel(QTabWidget):
 
     def zapelnij_bts_panstwa_tab2(self):
         self.__tab2.zapelnij_bts_panstwa_tab2()
+
+    def keyPressEvent(self, event):
+        if event.key() == Qt.Key.Key_Escape:
+            QApplication.instance().quit()
 
 
 class Tab1(QWidget):
