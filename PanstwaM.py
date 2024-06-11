@@ -1,4 +1,4 @@
-class Panstwo():  # reprezentcja pojedynczego panstwa
+class Panstwo:  # reprezentcja pojedynczego panstwa
     def __init__(self, nazwa, dane):
         self.__nazwa = nazwa
         self.__lista_ilosci_aut = dane
@@ -18,7 +18,7 @@ class Panstwo():  # reprezentcja pojedynczego panstwa
         return False
 
 
-class Lista_panstw():  # Bedzie robić za panstwa original i panstwa-
+class Lista_panstw:  # Bedzie robić za panstwa original i panstwa-
     def __init__(self, lista_obiektow_panstwo=[]):
         self.__tablica_panstw = lista_obiektow_panstwo
 

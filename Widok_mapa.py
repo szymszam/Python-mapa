@@ -82,6 +82,7 @@ class MapWidget(QtWidgets.QWidget):
         self.__map = Map(self.__DANE_2)
         self.__webview = QtWebEngineWidgets.QWebEngineView()
         self.__webview.setHtml(self.__map.get_html())
+        self.__webview.setFixedSize(1880,700)
         self.__przyciski = Obsluga_mapy(self, self.__DANE_2, self.__map)
         self.__label = QtWidgets.QLabel("Stacje ładowania", self, alignment=QtCore.Qt.AlignmentFlag.AlignHCenter)
         self.__label.setStyleSheet("font-size: 30pt; font-family: Arial;")
